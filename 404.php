@@ -1,0 +1,17 @@
+<?php
+/**
+ * 404 template.
+ *
+ * @package cb-istp2027
+ */
+
+get_header();
+?>
+
+<div class="container">
+	<h1><?php esc_html_e( 'Page not found', 'cb-istp2027' ); ?></h1>
+	<p><?php esc_html_e( "The page you're looking for doesn't exist.", 'cb-istp2027' ); ?></p>
+</div>
+
+<?php
+get_footer();
