@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { TextControl, RangeControl, Button } from '@wordpress/components';
+import { TextControl, Button } from '@wordpress/components';
 import EditorBlockShell from '../../_shared/EditorBlockShell';
 
 function ImageField( { label, id, url, onSelect, onClear } ) {
@@ -38,7 +38,7 @@ function ImageField( { label, id, url, onSelect, onClear } ) {
 }
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { backgroundId, backgroundUrl, overlayOpacity, logoId, logoUrl, logoAlt, title, subtitle, intro } = attributes;
+	const { backgroundId, backgroundUrl, logoId, logoUrl, logoAlt, eyebrow, title, details } = attributes;
 	const blockProps = useBlockProps( { className: 'container cb-istp2027-editor-block' } );
 
 	return (
@@ -49,14 +49,6 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				url={ backgroundUrl }
 				onSelect={ ( media ) => setAttributes( { backgroundId: media.id, backgroundUrl: media.url } ) }
 				onClear={ () => setAttributes( { backgroundId: 0, backgroundUrl: '' } ) }
-			/>
-			<RangeControl
-				label={ __( 'Overlay opacity (%)', 'cb-istp2027' ) }
-				value={ overlayOpacity }
-				onChange={ ( value ) => setAttributes( { overlayOpacity: value ?? 0 } ) }
-				min={ 0 }
-				max={ 100 }
-				help={ __( 'Dark layer between the background image and the content.', 'cb-istp2027' ) }
 			/>
 			<ImageField
 				label={ __( 'Logo', 'cb-istp2027' ) }
@@ -71,20 +63,20 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				onChange={ ( value ) => setAttributes( { logoAlt: value } ) }
 			/>
 			<TextControl
+				label={ __( 'Eyebrow', 'cb-istp2027' ) }
+				value={ eyebrow }
+				onChange={ ( value ) => setAttributes( { eyebrow: value } ) }
+			/>
+			<TextControl
 				label={ __( 'Title (h1)', 'cb-istp2027' ) }
 				value={ title }
 				onChange={ ( value ) => setAttributes( { title: value } ) }
 			/>
 			<TextControl
-				label={ __( 'Subtitle', 'cb-istp2027' ) }
-				value={ subtitle }
-				onChange={ ( value ) => setAttributes( { subtitle: value } ) }
-			/>
-			<TextControl
-				label={ __( 'Intro', 'cb-istp2027' ) }
-				value={ intro }
-				onChange={ ( value ) => setAttributes( { intro: value } ) }
-				help={ __( 'Dates and location line.', 'cb-istp2027' ) }
+				label={ __( 'Details', 'cb-istp2027' ) }
+				value={ details }
+				onChange={ ( value ) => setAttributes( { details: value } ) }
+				help={ __( 'Location and dates line.', 'cb-istp2027' ) }
 			/>
 		</EditorBlockShell>
 	);

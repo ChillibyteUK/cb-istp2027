@@ -4,14 +4,24 @@
 	.banner__box {
 		display: flex;
 		align-items: center;
-		gap: var(--space-3);
+		gap: 2.5rem;
 		padding: var(--space-3) var(--space-4);
-		border: 1px solid var(--col-grey-300);
-		background: var(--col-grey-100);
+		background: var(--col-mist);
 	}
 
 	.banner__icon {
 		flex: none;
+		width: auto;
+		height: 3rem;
+		color: var(--col-navy);
+	}
+
+	.banner__divider {
+		flex: none;
+		align-self: center;
+		width: 3px;
+		height: 3rem;
+		background: var(--col-navy);
 	}
 
 	.banner__content > :last-child {

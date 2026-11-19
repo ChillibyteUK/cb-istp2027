@@ -17,24 +17,44 @@
   --col-grey-900: #1a1a1a;
   --col-blue-700: #1d4ed8;
 
+  /* ISTP 2027 brand — colours.png */
+  --col-teal: #74bcba;
+  --col-teal-deep: #026d73;
+  --col-navy: #0a163a;
+  --col-slate: #1d2647;
+  --col-mist: #d6e8e8;
+  --col-indigo: #2c2a6b;
+
   --col-primary: var(--col-blue-700);
-  --col-body: var(--col-black);
+  --col-body: var(--col-indigo);
   --col-body-bg: var(--col-white);
   --col-heading: var(--col-grey-900);
 
+  /* Hero overlay gradient — teal bottom-left, through navy, to slate at the
+     right. Slightly translucent so the photo reads faintly through it. */
+  --gradient-hero: linear-gradient(
+    70deg,
+    rgb(2 109 115 / 1) 0%,
+    rgb(10 22 58 / 0.97) 40%,
+    rgb(10 22 58 / 0.95) 62%,
+    rgb(29 38 71 / 0.93) 100%
+  );
+
   /* Type scale — DM Sans (provisional), roughly a 1.25 ratio, fluid via
      clamp() between a 375px and a ~1320px viewport. */
-  --font-family-base: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-family-base: "Lexend", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-family-hero: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --fs-base: 1rem;
   --fs-lede: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
   --fs-h1: clamp(2.5rem, 1.9rem + 3vw, 4.5rem);
-  --fs-h2: clamp(1.875rem, 1.5rem + 1.75vw, 2.75rem);
+  --fs-h2: clamp(2.25rem, 1.4rem + 3.2vw, 4rem);
   --fs-h3: clamp(1.4rem, 1.2rem + 1vw, 2rem);
   --fs-h4: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
   --fs-h5: 1.125rem;
   --fs-h6: 1rem;
   --fs-small: 0.875rem;
   --fw-400: 400;
+  --fw-500: 500;
   --fw-600: 600;
   --fw-700: 700;
 
@@ -42,6 +62,7 @@
 	   for every custom property here, so these are free utility classes too
 	   (.fw-normal, .fw-semibold, .fw-bold), not just tokens for use in CSS. */
   --fw-normal: var(--fw-400);
+  --fw-medium: var(--fw-500);
   --fw-semibold: var(--fw-600);
   --fw-bold: var(--fw-700);
 

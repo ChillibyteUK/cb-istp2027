@@ -17,24 +17,44 @@
   --col-grey-900: #1a1a1a;
   --col-blue-700: #1d4ed8;
 
+  /* ISTP 2027 brand — colours.png */
+  --col-teal: #74bcba;
+  --col-teal-deep: #026d73;
+  --col-navy: #0a163a;
+  --col-slate: #1d2647;
+  --col-mist: #d6e8e8;
+  --col-indigo: #2c2a6b;
+
   --col-primary: var(--col-blue-700);
-  --col-body: var(--col-black);
+  --col-body: var(--col-indigo);
   --col-body-bg: var(--col-white);
   --col-heading: var(--col-grey-900);
 
+  /* Hero overlay gradient — teal bottom-left, through navy, to slate at the
+     right. Slightly translucent so the photo reads faintly through it. */
+  --gradient-hero: linear-gradient(
+    70deg,
+    rgb(2 109 115 / 1) 0%,
+    rgb(10 22 58 / 0.97) 40%,
+    rgb(10 22 58 / 0.95) 62%,
+    rgb(29 38 71 / 0.93) 100%
+  );
+
   /* Type scale — DM Sans (provisional), roughly a 1.25 ratio, fluid via
      clamp() between a 375px and a ~1320px viewport. */
-  --font-family-base: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-family-base: "Lexend", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-family-hero: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --fs-base: 1rem;
   --fs-lede: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
   --fs-h1: clamp(2.5rem, 1.9rem + 3vw, 4.5rem);
-  --fs-h2: clamp(1.875rem, 1.5rem + 1.75vw, 2.75rem);
+  --fs-h2: clamp(2.25rem, 1.4rem + 3.2vw, 4rem);
   --fs-h3: clamp(1.4rem, 1.2rem + 1vw, 2rem);
   --fs-h4: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
   --fs-h5: 1.125rem;
   --fs-h6: 1rem;
   --fs-small: 0.875rem;
   --fw-400: 400;
+  --fw-500: 500;
   --fw-600: 600;
   --fw-700: 700;
 
@@ -42,6 +62,7 @@
 	   for every custom property here, so these are free utility classes too
 	   (.fw-normal, .fw-semibold, .fw-bold), not just tokens for use in CSS. */
   --fw-normal: var(--fw-400);
+  --fw-medium: var(--fw-500);
   --fw-semibold: var(--fw-600);
   --fw-bold: var(--fw-700);
 
@@ -98,7 +119,7 @@ body {
 	margin: 0;
 	font-family: var(--font-family-base);
 	font-size: var(--fs-base);
-	font-weight: var(--fw-400);
+	font-weight: var(--fw-500);
 	line-height: var(--line-height-base);
 	color: var(--col-body);
 	background-color: var(--col-body-bg);
@@ -113,7 +134,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 var(--space-3);
-	font-weight: var(--fw-700);
+	font-weight: var(--fw-500);
 	line-height: var(--line-height-heading);
 	color: var(--col-heading);
 	letter-spacing: -0.015em;
@@ -141,6 +162,7 @@ h6 {
 
 p {
 	margin: 0 0 var(--space-3);
+	text-wrap: pretty;
 }
 
 a {
@@ -244,13 +266,30 @@ ol {
 	text-underline-offset: 0.15em;
 }
 
-/* Webfont — self-hosted variable DM Sans (latin), preloaded via inc/head-tags.php */
+/* Webfonts — self-hosted variable DM Sans (hero) and Lexend (body), latin,
+   preloaded via inc/head-tags.php */
 @font-face {
 	font-family: "DM Sans";
 	font-style: normal;
 	font-weight: 100 1000;
 	font-display: swap;
 	src: url("../fonts/DMSans-Variable.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Lexend";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("../fonts/Lexend-Variable.woff2") format("woff2");
+}
+
+/* The "Lede" format in the block editor (blocks/_editor-formats) applies this
+   class to a selection — typically the first paragraph of body copy. */
+.text-body-l-medium {
+	font-size: var(--fs-lede);
+	font-weight: var(--fw-500);
+	line-height: 1.4;
 }
 
 .lede {
@@ -760,9 +799,11 @@ article h2[id] {
 .text-center { text-align: center; }
 .text-end { text-align: right; }
 .fw-400 { font-weight: var(--fw-400); }
+.fw-500 { font-weight: var(--fw-500); }
 .fw-600 { font-weight: var(--fw-600); }
 .fw-700 { font-weight: var(--fw-700); }
 .fw-normal { font-weight: var(--fw-normal); }
+.fw-medium { font-weight: var(--fw-medium); }
 .fw-semibold { font-weight: var(--fw-semibold); }
 .fw-bold { font-weight: var(--fw-bold); }
 .w-25 { width: 25%; }
@@ -1719,13 +1760,22 @@ article h2[id] {
 .banner .banner__box {
 		display: flex;
 		align-items: center;
-		gap: var(--space-3);
+		gap: 2.5rem;
 		padding: var(--space-3) var(--space-4);
-		border: 1px solid var(--col-grey-300);
-		background: var(--col-grey-100);
+		background: var(--col-mist);
 	}
 .banner .banner__icon {
 		flex: none;
+		width: auto;
+		height: 3rem;
+		color: var(--col-navy);
+	}
+.banner .banner__divider {
+		flex: none;
+		align-self: center;
+		width: 3px;
+		height: 3rem;
+		background: var(--col-navy);
 	}
 .banner .banner__content > :last-child {
 		margin-bottom: 0;
@@ -1733,14 +1783,25 @@ article h2[id] {
 
 /* --- src/blocks/hero.css --- */
 .hero {
+	--hero-fs-eyebrow: clamp(1.5rem, 1rem + 2.2vw, 2.75rem);
+	--hero-fs-title: clamp(2.25rem, 1.2rem + 4vw, 5rem);
+	--hero-fs-details: clamp(1.05rem, 0.85rem + 1vw, 1.875rem);
+
+	/* Murmuration width — half the hero on desktop (as in the design), never
+	   narrower than 30rem so it doesn't shrink to nothing, full width once
+	   the screen is narrower than that. Fluid, no breakpoints. Its height is
+	   width × 493/1402 (the cropped SVG's aspect). */
+	--hero-mm-w: min(100%, 64rem, max(50%, 30rem));
+
 	position: relative;
 	display: grid;
-	place-items: center;
+	font-family: var(--font-family-hero);
 	min-height: 100vh;
 	min-height: 100svh;
 	overflow: hidden;
 	color: var(--col-white);
-	background-color: var(--col-grey-900);
+	background-color: var(--col-navy);
+	font-weight: 300;
 }
 .hero .hero__bg {
 		position: absolute;
@@ -1748,41 +1809,68 @@ article h2[id] {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: 80% center;
 	}
 .hero .hero__overlay {
 		position: absolute;
 		inset: 0;
-		background: var(--col-black);
-		opacity: var(--hero-overlay, 0.55);
+		background: var(--gradient-hero);
+	}
+.hero .hero__murmuration {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: var(--hero-mm-w);
+		height: auto;
+		pointer-events: none;
+		mix-blend-mode: screen;
+		filter: brightness(1.25) saturate(1.1);
 	}
 .hero .hero__inner {
 		position: relative;
-		display: grid;
-		justify-items: center;
-		gap: var(--space-3);
-		padding-block: var(--space-6);
-		text-align: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: var(--space-5);
+		padding-top: clamp(3rem, 12vh, 7rem);
+
+		/* Desktop: text sits at the bottom, over the arrows' sparse upper-left
+		   fringe, as in the design. Below ~1100px the arrows are too large
+		   relative to the screen for that, so the text is lifted clear of them
+		   — easing in at 0.6px per px of viewport, capped at the arrows'
+		   height + 1.5rem, so it never steps. */
+		padding-bottom: max(
+			clamp(2.5rem, 8vh, 5rem),
+			clamp(0px, (1100px - 100vw) * 0.6, var(--hero-mm-w) * 0.36 + 1.5rem)
+		);
 	}
 .hero .hero__logo {
-		width: auto;
-		max-width: min(100%, 14rem);
-		max-height: 10rem;
-		margin-bottom: var(--space-3);
+		width: clamp(11rem, 8rem + 12vw, 19rem);
+		height: auto;
+	}
+.hero .hero__text {
+		max-width: 56rem;
+	}
+.hero .hero__eyebrow {
+		margin: 0 0 var(--space-2);
+		font-size: var(--hero-fs-eyebrow);
+		line-height: 1.1;
+		color: var(--col-teal);
 	}
 .hero .hero__title {
-		margin: 0;
-		font-size: var(--fs-h1);
-		color: inherit;
-	}
-.hero .hero__subtitle {
-		margin: 0;
-		font-size: var(--fs-lede);
+		margin: 0 0 var(--space-4);
+		font-size: var(--hero-fs-title);
+		font-weight: 300;
+		line-height: 1.1;
+		letter-spacing: -0.01em;
+		color: var(--col-white);
 		text-wrap: balance;
 	}
-.hero .hero__intro {
+.hero .hero__details {
 		margin: 0;
-		font-size: var(--fs-h4);
-		font-weight: var(--fw-600);
+		font-size: var(--hero-fs-details);
+		line-height: 1.2;
+		color: var(--col-teal);
 	}
 
 /* --- src/blocks/title-text.css --- */
@@ -1791,9 +1879,11 @@ article h2[id] {
 }
 .title-text .title-text__title {
 		margin: 0;
+		color: var(--col-teal);
+		text-wrap: balance;
 	}
 .title-text .title-text__body {
-		max-width: 40rem;
+		color: var(--col-body);
 	}
 :is(.title-text .title-text__body)  > :last-child {
 			margin-bottom: 0;

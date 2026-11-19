@@ -3,10 +3,12 @@
 
 	.title-text__title {
 		margin: 0;
+		color: var(--col-teal);
+		text-wrap: balance;
 	}
 
 	.title-text__body {
-		max-width: 40rem;
+		color: var(--col-body);
 
 		> :last-child {
 			margin-bottom: 0;

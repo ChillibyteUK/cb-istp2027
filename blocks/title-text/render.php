@@ -14,7 +14,7 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'title-tex
 <section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_block_wrapper_attributes() already escapes. ?>>
 	<div class="container">
 		<div class="row">
-			<div class="col-12 col-lg-6">
+			<div class="col-12 col-lg-4">
 				<?php
 				if ( $title ) {
 					?>
@@ -23,7 +23,7 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'title-tex
 				}
 				?>
 			</div>
-			<div class="col-12 col-lg-6 title-text__body">
+			<div class="col-12 col-lg-8 title-text__body">
 				<?php
 				if ( trim( $content ) ) {
 					echo wp_kses_post( $content );
