@@ -121,3 +121,43 @@ function cb_istp2027_enqueue_lede_format() {
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'cb_istp2027_enqueue_lede_format' );
+
+/**
+ * Give the editor's stylesheet base URLs a full origin.
+ *
+ * The block editor rewrites every url() in the theme's editor styles (the
+ * @font-face rules in css/theme.min.css) against each stylesheet's baseURL
+ * using `new URL()`, which throws on a root-relative base such as
+ * "/wp-content/themes/…/theme.min.css". When it throws, the *whole*
+ * stylesheet is silently dropped from the editor.
+ *
+ * Theme URLs are deliberately root-relative on the Azure deployment, which
+ * is reached on more than one hostname (the editing host and the public
+ * one). So the origin added here is the host serving *this* request, not
+ * the one in the siteurl option — fonts then load same-origin from whichever
+ * host the editor is open on. Falls back to the admin URL's origin if the
+ * Host header is missing or malformed.
+ *
+ * @param array $settings Block editor settings.
+ * @return array
+ */
+function cb_istp2027_absolute_editor_style_base_urls( $settings ) {
+	if ( empty( $settings['styles'] ) || ! is_array( $settings['styles'] ) ) {
+		return $settings;
+	}
+
+	$admin  = wp_parse_url( admin_url() );
+	$host   = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+	$origin = preg_match( '/^[a-z0-9.\-]+(:\d+)?$/i', $host )
+		? $admin['scheme'] . '://' . $host
+		: $admin['scheme'] . '://' . $admin['host'] . ( isset( $admin['port'] ) ? ':' . $admin['port'] : '' );
+
+	foreach ( $settings['styles'] as $index => $style ) {
+		if ( isset( $style['baseURL'] ) && 0 === strpos( $style['baseURL'], '/' ) && 0 !== strpos( $style['baseURL'], '//' ) ) {
+			$settings['styles'][ $index ]['baseURL'] = $origin . $style['baseURL'];
+		}
+	}
+
+	return $settings;
+}
+add_filter( 'block_editor_settings_all', 'cb_istp2027_absolute_editor_style_base_urls' );
