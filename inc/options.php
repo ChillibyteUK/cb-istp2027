@@ -13,13 +13,9 @@
  * `gallery` (a fixed multi-image list, e.g. an accreditation badge row) and
  * `repeater` (genuinely repeating structured rows, e.g. a client-logo
  * list) — plus a generic tabs pattern once there are enough sections to
- * make one long scrolling page unwieldy. The Scripts tab's three raw markup
- * slots (`custom_head`, `custom_body_open`, `custom_body_close`), gated by
- * `custom_scripts_logged_out_only`, are printed unescaped by design — see
- * inc/head-tags.php. The example fields below
- * (`example_gallery`, `example_repeater`) exist to demonstrate both field
- * types working end to end; rename or replace them with real per-project
- * fields.
+ * make one long scrolling page unwieldy. The Footer tab's `footer_logos`
+ * is the one `repeater` field in use; no field currently uses `gallery`, but
+ * its renderer is kept for projects that need it.
  *
  * @package cb-istp2027
  */
@@ -51,7 +47,7 @@ function cb_istp2027_get_setting( $key, $default = '' ) {
  * Stored as a CSV string (see cb_istp2027_render_gallery_field()) — order
  * is the display order.
  *
- * @param string $key Setting key, e.g. 'example_gallery'.
+ * @param string $key Setting key, e.g. 'badges'.
  * @return int[]
  */
 function cb_istp2027_get_gallery_setting( $key ) {
@@ -78,17 +74,31 @@ function cb_istp2027_register_settings_page() {
 	register_setting( 'cb_istp2027_settings', CB_ISTP2027_SETTINGS_OPTION );
 
 	add_settings_section( 'cb_istp2027_general', 'General', '__return_false', 'theme-general-settings' );
+	add_settings_section( 'cb_istp2027_footer', 'Footer', '__return_false', 'theme-general-settings' );
 	add_settings_section( 'cb_istp2027_social', 'Social', '__return_false', 'theme-general-settings' );
 	add_settings_section( 'cb_istp2027_tracking', 'Tracking & Verification', '__return_false', 'theme-general-settings' );
-	add_settings_section( 'cb_istp2027_scripts', 'Scripts', '__return_false', 'theme-general-settings' );
-	add_settings_section( 'cb_istp2027_gallery', 'Gallery', '__return_false', 'theme-general-settings' );
-	add_settings_section( 'cb_istp2027_repeater', 'Repeater', '__return_false', 'theme-general-settings' );
 
 	$fields = array(
 		'email'                     => array(
 			'label'   => 'Email',
 			'type'    => 'email',
 			'section' => 'cb_istp2027_general',
+		),
+		'footer_logos'              => array(
+			'label'       => 'Footer Logos',
+			'type'        => 'repeater',
+			'section'     => 'cb_istp2027_footer',
+			'sub_fields'  => array(
+				'name' => array(
+					'label' => 'Name (alt text)',
+					'type'  => 'text',
+				),
+				'logo' => array(
+					'label' => 'Logo',
+					'type'  => 'image',
+				),
+			),
+			'description' => 'Partner logos shown on the left of the footer, in order. The email address (General tab) and a Cookies link to /cookie-policy/ sit on the right.',
 		),
 		'phone'                     => array(
 			'label'   => 'Phone',
@@ -135,53 +145,6 @@ function cb_istp2027_register_settings_page() {
 			'section'     => 'cb_istp2027_tracking',
 			'description' => 'Content value of the msvalidate.01 meta tag.',
 		),
-		'custom_head'               => array(
-			'label'       => 'Head',
-			'type'        => 'code',
-			'section'     => 'cb_istp2027_scripts',
-			'description' => 'Printed in <head> after the managed GA/GTM tags. Paste vendor snippets verbatim, <script> tags and all — nothing is escaped or filtered.',
-		),
-		'custom_body_open'          => array(
-			'label'       => 'Body Open',
-			'type'        => 'code',
-			'section'     => 'cb_istp2027_scripts',
-			'description' => 'Printed immediately after <body> opens, after the GTM noscript fallback. Where <noscript> tracking pixels belong.',
-		),
-		'custom_body_close'         => array(
-			'label'       => 'Body Close',
-			'type'        => 'code',
-			'section'     => 'cb_istp2027_scripts',
-			'description' => 'Printed just before </body>. Use for anything that must not block rendering — chat widgets, late-loading embeds.',
-		),
-		'custom_scripts_logged_out_only' => array(
-			'label'       => 'Logged-Out Visitors Only',
-			'type'        => 'checkbox',
-			'section'     => 'cb_istp2027_scripts',
-			'default'     => '1',
-			'description' => 'On by default, matching GA/GTM — keeps the team\'s own traffic out of whatever these scripts measure. Untick if a slot holds something every visitor should see, e.g. a chat widget.',
-		),
-		'example_gallery'           => array(
-			'label'       => 'Example Gallery',
-			'type'        => 'gallery',
-			'section'     => 'cb_istp2027_gallery',
-			'description' => 'A fixed multi-image list — e.g. accreditation badges, a logo strip. Read with cb_istp2027_get_repeater_setting-style helper of your own, mirroring cb_istp2027_get_footer_accreditation_ids() in the cb-hts-js-2026 sibling theme.',
-		),
-		'example_repeater'          => array(
-			'label'       => 'Example Repeater',
-			'type'        => 'repeater',
-			'section'     => 'cb_istp2027_repeater',
-			'sub_fields'  => array(
-				'name' => array(
-					'label' => 'Name',
-					'type'  => 'text',
-				),
-				'logo' => array(
-					'label' => 'Logo',
-					'type'  => 'image',
-				),
-			),
-			'description' => 'Genuinely repeating structured rows — e.g. a client-logo list. Read with cb_istp2027_get_repeater_setting( \'example_repeater\' ).',
-		),
 	);
 
 	foreach ( $fields as $key => $field ) {
@@ -205,7 +168,7 @@ add_action( 'admin_menu', 'cb_istp2027_register_settings_page' );
  * so rows survive as-is; this just guards the case where the key was never
  * set at all.
  *
- * @param string $key Setting key, e.g. 'example_repeater'.
+ * @param string $key Setting key, e.g. 'footer_logos'.
  * @return array[]
  */
 function cb_istp2027_get_repeater_setting( $key ) {

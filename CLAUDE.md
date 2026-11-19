@@ -160,6 +160,7 @@ inc/
   block-usage.php        [block_usage_table] shortcode — QA utility, lists every block against the published pages/posts using it
   editor.php            Block-editor extras: "Lede" RichText format enqueue (blocks/_editor-formats), editor assets
   security.php          Fixed site hardening, no options UI: comments/tags/gravatars/emojis off, security headers, XML-RPC lockdown, user-enumeration blocks, DISALLOW_FILE_EDIT
+  media.php             JPEG/PNG uploads converted to WebP on upload (quality 80, longest edge capped at 2560px, original kept if WebP isn't smaller). Gated by cb_istp2027_webp_supported() — Imagick-with-WebP or GD-with-WebP via wp_image_editor_supports(); without it nothing runs and the Media Library shows a notice. Filters: cb_istp2027_webp_enabled, cb_istp2027_webp_quality
   toc.php               [cb_toc] shortcode — h2 table of contents, heading ids injected via the_content filter
   footnotes.php         [Footnote] tags + [cbp_footnotes] list (ported from the cbp-footnotes plugin, behaviour unchanged)
   social-icons.php      [social_icons] shortcode, driven by the Social tab of Site-Wide Settings
@@ -249,7 +250,7 @@ templates/              header-flat.php / header-stacked.php — setup.sh writes
 css/ , js/              Compiled output — committed to git (not gitignored), same convention as
                         the Understrap-based themes this replaced
 add_block.sh            Prompts for a block name, then loops prompting for each field's name and
-                        type (text/textarea/richtext/image/url/link/number/select/checkbox; url uses SiteUrlInput/URLInput),
+                        type (text/textarea/richtext/content/image/url/link/number/select/checkbox; `content` = block field, InnerBlocks limited to paragraph/list/heading/spacer, one per block, rendered via `$content`; url uses SiteUrlInput/URLInput),
                         generating block.json's attributes, the matching src/edit.js control, and
                         a render.php $attributes stub for each one. Not yet supported by the
                         generator: repeater, gallery, relationship, post_object, file — add those

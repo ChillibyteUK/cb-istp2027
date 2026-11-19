@@ -1,0 +1,13 @@
+/* Webfont — self-hosted variable DM Sans (latin), preloaded via inc/head-tags.php */
+@font-face {
+	font-family: "DM Sans";
+	font-style: normal;
+	font-weight: 100 1000;
+	font-display: swap;
+	src: url("../fonts/DMSans-Variable.woff2") format("woff2");
+}
+
+.lede {
+	font-size: var(--fs-lede);
+	line-height: 1.5;
+}

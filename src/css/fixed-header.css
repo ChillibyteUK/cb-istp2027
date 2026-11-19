@@ -44,7 +44,8 @@ body.admin-bar #masthead {
 	}
 }
 
-main {
+/* Not on the Landing template (header-landing.php): it has no masthead to clear. */
+body:not(.landing) main {
 	padding-top: calc(var(--nav-height) + 1px);
 }
 

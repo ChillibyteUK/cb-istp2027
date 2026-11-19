@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cb-istp2027/hero",
+	"title": "Hero",
+	"category": "cb-istp2027",
+	"icon": "cover-image",
+	"attributes": {
+		"backgroundId": { "type": "number", "default": 0 },
+		"backgroundUrl": { "type": "string", "default": "" },
+		"overlayOpacity": { "type": "number", "default": 55 },
+		"logoId": { "type": "number", "default": 0 },
+		"logoUrl": { "type": "string", "default": "" },
+		"logoAlt": { "type": "string", "default": "" },
+		"title": { "type": "string", "default": "" },
+		"subtitle": { "type": "string", "default": "" },
+		"intro": { "type": "string", "default": "" }
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": true
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

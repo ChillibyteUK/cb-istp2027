@@ -1,0 +1,15 @@
+.title-text {
+	padding-block: var(--space-6);
+
+	.title-text__title {
+		margin: 0;
+	}
+
+	.title-text__body {
+		max-width: 40rem;
+
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
+}

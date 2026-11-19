@@ -1,0 +1,20 @@
+.banner {
+	padding-block: var(--space-4) var(--space-5);
+
+	.banner__box {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		padding: var(--space-3) var(--space-4);
+		border: 1px solid var(--col-grey-300);
+		background: var(--col-grey-100);
+	}
+
+	.banner__icon {
+		flex: none;
+	}
+
+	.banner__content > :last-child {
+		margin-bottom: 0;
+	}
+}

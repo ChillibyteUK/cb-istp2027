@@ -33,6 +33,7 @@ require_once CB_ISTP2027_DIR . '/inc/utilities.php';
 require_once CB_ISTP2027_DIR . '/inc/posttypes.php';
 require_once CB_ISTP2027_DIR . '/inc/taxonomies.php';
 require_once CB_ISTP2027_DIR . '/inc/security.php';
+require_once CB_ISTP2027_DIR . '/inc/media.php';
 require_once CB_ISTP2027_DIR . '/inc/toc.php';
 require_once CB_ISTP2027_DIR . '/inc/footnotes.php';
 require_once CB_ISTP2027_DIR . '/inc/helpers.php';
