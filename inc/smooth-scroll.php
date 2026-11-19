@@ -19,10 +19,13 @@ defined( 'ABSPATH' ) || exit;
  * @return void
  */
 function cb_istp2027_enqueue_smooth_scroll() {
+	// GSAP is off — entrances are CSS (src/css/reveal.css). Uncomment both
+	// lines (ScrollTrigger needs gsap) if a project needs timelines, pinning or
+	// SplitText; lenis-init.js syncs Lenis to ScrollTrigger when they're present.
 	// gsap.min.js 3.12.5 cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js
-	cb_istp2027_enqueue_vendor( 'gsap', 'gsap.min.js' );
+	// cb_istp2027_enqueue_vendor( 'gsap', 'gsap.min.js' );
 	// ScrollTrigger.min.js 3.12.5 cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js
-	cb_istp2027_enqueue_vendor( 'gsap-scrolltrigger', 'ScrollTrigger.min.js', false, array( 'gsap' ) );
+	// cb_istp2027_enqueue_vendor( 'gsap-scrolltrigger', 'ScrollTrigger.min.js', false, array( 'gsap' ) );
 	// lenis.css / lenis.min.js 1.3.11 unpkg.com/lenis@1.3.11/dist/
 	cb_istp2027_enqueue_vendor( 'lenis-style', 'lenis.css', true );
 	cb_istp2027_enqueue_vendor( 'lenis', 'lenis.min.js' );
