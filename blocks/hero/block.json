@@ -13,7 +13,7 @@
 		"logoAlt": { "type": "string", "default": "ISTP27" },
 		"eyebrow": { "type": "string", "default": "Welcome to the" },
 		"title": { "type": "string", "default": "International Summit on the Teaching Profession" },
-		"details": { "type": "string", "default": "London • United Kingdom • 9 - 11 March 2027" }
+		"details": { "type": "string", "default": "London\nUnited Kingdom\n9 - 11 March 2027" }
 	},
 	"supports": {
 		"anchor": true,

@@ -50,7 +50,10 @@ $footer_email = cb_istp2027_get_setting( 'email' );
 					<?php
 				}
 				?>
-				<a class="footer__cookies" href="<?php echo esc_url( home_url( '/cookie-policy/' ) ); ?>">Cookies</a>
+				<ul class="footer__links">
+					<li><a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/cookie-policy/' ) ); ?>">Cookies</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>

@@ -18,7 +18,7 @@
   --col-blue-700: #1d4ed8;
 
   /* ISTP 2027 brand — colours.png */
-  --col-teal: #74bcba;
+  --col-teal: #619e9c;
   --col-teal-deep: #026d73;
   --col-navy: #0a163a;
   --col-slate: #1d2647;
@@ -561,7 +561,7 @@ ol {
 #footer {
 	padding-block: var(--space-5);
 	color: var(--col-white);
-	background: var(--col-grey-900);
+	background: var(--col-navy);
 }
 
 #footer a {
@@ -580,15 +580,22 @@ ol {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: var(--space-3) var(--space-4);
+		gap: var(--space-3) var(--space-5);
 		margin: 0;
 		padding: 0;
 		list-style: none;
+
+		/* The SVGs have a viewBox but no intrinsic size, so the height has to be
+		   definite; max-width + contain then caps wide logos (UK Government)
+		   instead of letting them dominate the row. */
 	}
 
 :is(#footer .footer__logos) img {
 			width: auto;
-			max-height: 3rem;
+			height: 3rem;
+			max-width: 11rem;
+			object-fit: contain;
+			object-position: left center;
 		}
 
 #footer .footer__meta {
@@ -606,9 +613,18 @@ ol {
 		text-decoration: underline;
 	}
 
-#footer .footer__cookies {
-		text-decoration: underline;
+#footer .footer__links {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin: 0;
+		padding: 0;
+		list-style: none;
 	}
+
+:is(#footer .footer__links) a {
+			text-decoration: underline;
+		}
 
 /* Minimal, deliberately unopinionated form base — expected to be overridden per project. */
 
@@ -1867,11 +1883,23 @@ article h2[id] {
 		text-wrap: balance;
 	}
 .hero .hero__details {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: 0.6em;
 		margin: 0;
+		padding: 0;
+		list-style: none;
 		font-size: var(--hero-fs-details);
 		line-height: 1.2;
 		color: var(--col-teal);
+
+		/* Bullet drawn after every item but the last. The empty alt text after
+		   the slash keeps screen readers from announcing "bullet". */
 	}
+:is(.hero .hero__details) li:not(:last-child)::after {
+			content: "•" / "";
+			margin-left: 0.6em;
+		}
 
 /* --- src/blocks/title-text.css --- */
 .title-text {

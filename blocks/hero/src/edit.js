@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { TextControl, Button } from '@wordpress/components';
+import { TextControl, TextareaControl, Button } from '@wordpress/components';
 import EditorBlockShell from '../../_shared/EditorBlockShell';
 
 function ImageField( { label, id, url, onSelect, onClear } ) {
@@ -72,11 +72,11 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				value={ title }
 				onChange={ ( value ) => setAttributes( { title: value } ) }
 			/>
-			<TextControl
+			<TextareaControl
 				label={ __( 'Details', 'cb-istp2027' ) }
 				value={ details }
 				onChange={ ( value ) => setAttributes( { details: value } ) }
-				help={ __( 'Location and dates line.', 'cb-istp2027' ) }
+				help={ __( 'One item per line — bullets are added between them.', 'cb-istp2027' ) }
 			/>
 		</EditorBlockShell>
 	);

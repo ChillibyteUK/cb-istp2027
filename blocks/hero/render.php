@@ -14,7 +14,7 @@ $logo_url       = $attributes['logoUrl'] ?? '';
 $logo_alt       = $attributes['logoAlt'] ?? '';
 $eyebrow        = $attributes['eyebrow'] ?? '';
 $title          = $attributes['title'] ?? '';
-$details        = $attributes['details'] ?? '';
+$details        = array_filter( array_map( 'trim', preg_split( '/\R/', $attributes['details'] ?? '' ) ) );
 
 $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'hero' ) );
 ?>
@@ -65,7 +65,11 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'hero' ) )
 			}
 			if ( $details ) {
 				?>
-				<p class="hero__details"><?php echo esc_html( $details ); ?></p>
+				<ul class="hero__details">
+					<?php foreach ( $details as $detail ) { ?>
+						<li><?php echo esc_html( $detail ); ?></li>
+					<?php } ?>
+				</ul>
 				<?php
 			}
 			?>

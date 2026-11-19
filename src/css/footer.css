@@ -1,7 +1,7 @@
 #footer {
 	padding-block: var(--space-5);
 	color: var(--col-white);
-	background: var(--col-grey-900);
+	background: var(--col-navy);
 
 	a {
 		color: inherit;
@@ -19,14 +19,20 @@
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: var(--space-3) var(--space-4);
+		gap: var(--space-3) var(--space-5);
 		margin: 0;
 		padding: 0;
 		list-style: none;
 
+		/* The SVGs have a viewBox but no intrinsic size, so the height has to be
+		   definite; max-width + contain then caps wide logos (UK Government)
+		   instead of letting them dominate the row. */
 		img {
 			width: auto;
-			max-height: 3rem;
+			height: 3rem;
+			max-width: 11rem;
+			object-fit: contain;
+			object-position: left center;
 		}
 	}
 
@@ -45,7 +51,16 @@
 		text-decoration: underline;
 	}
 
-	.footer__cookies {
-		text-decoration: underline;
+	.footer__links {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		a {
+			text-decoration: underline;
+		}
 	}
 }
