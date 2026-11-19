@@ -85,3 +85,21 @@ function cb_istp2027_enqueue_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cb_istp2027_enqueue_scripts' );
+
+/**
+ * Keep the App Service Email plugin's front-end assets off public pages.
+ *
+ * The plugin sends mail server-side and has nothing to show visitors, but it
+ * enqueues an empty boilerplate stylesheet and a ~1KB script that is nothing
+ * but comments — and that script declares a jQuery dependency, which is the
+ * only reason jquery-core and jquery-migrate (~37KB, two render-blocking
+ * requests in <head>) load on an otherwise jQuery-free theme. Dequeuing the
+ * script is enough to drop jQuery with it. Harmless if the plugin is absent.
+ *
+ * @return void
+ */
+function cb_istp2027_dequeue_app_service_email_assets() {
+	wp_dequeue_script( 'app_service_email' );
+	wp_dequeue_style( 'app_service_email' );
+}
+add_action( 'wp_enqueue_scripts', 'cb_istp2027_dequeue_app_service_email_assets', 100 );
