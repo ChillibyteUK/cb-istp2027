@@ -40,7 +40,7 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'hero' ) )
 	}
 	?>
 	<div class="hero__overlay" aria-hidden="true"></div>
-	<img class="hero__murmuration" src="<?php echo esc_url( add_query_arg( 'v', filemtime( get_theme_file_path( 'img/murmuration.svg' ) ), get_theme_file_uri( 'img/murmuration.svg' ) ) ); ?>" alt="" aria-hidden="true">
+	<img class="hero__murmuration" src="<?php echo esc_url( add_query_arg( 'v', filemtime( get_theme_file_path( 'img/murmuration.svg' ) ), get_theme_file_uri( 'img/murmuration.svg' ) ) ); ?>" alt="" aria-hidden="true" fetchpriority="high">
 	<div class="container hero__inner">
 		<?php
 		if ( $logo_id ) {
