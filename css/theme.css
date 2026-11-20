@@ -87,7 +87,7 @@
 
   /* Layout */
   --container-max-width: 1320px;
-  --container-padding: var(--space-3);
+  --container-padding: clamp(1.25rem, 0.75rem + 2vw, 2rem);
   --grid-columns: 12;
   --grid-gutter: var(--space-3);
 
