@@ -75,7 +75,7 @@
   --space-2: 0.5rem;
   --space-3: 1rem;
   --space-4: 1.5rem;
-  --space-5: 3rem;
+  --space-5: clamp(3rem, 1.5rem + 4vw, 4rem);
   --space-6: 5rem;
 
   /* Radii / shadows / motion */
@@ -574,7 +574,23 @@ ol {
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-4);
+		container-type: inline-size;
+
+		/* Three logos plus their gaps need roughly 37rem; narrower than that
+		   they stack, rather than leaving one stranded on a second line. */
 	}
+
+@container (max-width: 38rem) {
+			:is(#footer .footer__inner) .footer__logos {
+				flex-direction: column;
+				align-items: flex-start;
+				row-gap: var(--space-4);
+			}
+
+			:is(#footer .footer__inner) .footer__meta {
+				flex-basis: 100%;
+			}
+		}
 
 #footer .footer__logos {
 		display: flex;
@@ -605,6 +621,14 @@ ol {
 		gap: var(--space-2) var(--space-5);
 		font-size: var(--fs-small);
 	}
+
+@media (max-width: 767px) {
+
+#footer .footer__meta {
+			flex-direction: column;
+			align-items: flex-start;
+	}
+		}
 
 #footer .footer__email {
 		display: inline-flex;
@@ -1825,6 +1849,21 @@ article h2[id] {
 .banner .banner__content > :last-child {
 		margin-bottom: 0;
 	}
+@media (max-width: 767px) {
+		.banner .banner__box {
+			align-items: flex-start;
+			gap: var(--space-3);
+		}
+
+		.banner .banner__icon {
+			height: 2rem;
+		}
+
+		.banner .banner__divider {
+			align-self: stretch;
+			height: auto;
+		}
+	}
 
 /* --- src/blocks/hero.css --- */
 .hero {
@@ -1848,6 +1887,18 @@ article h2[id] {
 	background-color: var(--col-navy);
 	font-weight: 300;
 }
+@media (max-width: 767px) {
+.hero {
+		min-height: min(100svh, 562px);
+		max-height: 562px;
+}
+	}
+@media (min-width: 768px) {
+.hero {
+		min-height: min(100svh, 720px);
+		max-height: 720px;
+}
+	}
 .hero .hero__bg {
 		position: absolute;
 		inset: 0;
@@ -1875,8 +1926,8 @@ article h2[id] {
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
-		gap: var(--space-5);
+		justify-content: flex-end;
+		gap: calc(var(--space-5) + var(--space-3));
 		padding-top: clamp(3rem, 12vh, 7rem);
 
 		/* Desktop: text sits at the bottom, over the arrows' sparse upper-left
@@ -1932,7 +1983,7 @@ article h2[id] {
 
 /* --- src/blocks/title-text.css --- */
 .title-text {
-	padding-block: var(--space-6);
+	padding-block: var(--space-5);
 }
 .title-text .title-text__title {
 		margin: 0;

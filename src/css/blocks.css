@@ -31,6 +31,22 @@
 	.banner__content > :last-child {
 		margin-bottom: 0;
 	}
+
+	@media (max-width: 767px) {
+		.banner__box {
+			align-items: flex-start;
+			gap: var(--space-3);
+		}
+
+		.banner__icon {
+			height: 2rem;
+		}
+
+		.banner__divider {
+			align-self: stretch;
+			height: auto;
+		}
+	}
 }
 
 /* --- src/blocks/hero.css --- */
@@ -54,6 +70,16 @@
 	color: var(--col-white);
 	background-color: var(--col-navy);
 	font-weight: 300;
+
+	@media (max-width: 767px) {
+		min-height: min(100svh, 562px);
+		max-height: 562px;
+	}
+
+	@media (min-width: 768px) {
+		min-height: min(100svh, 720px);
+		max-height: 720px;
+	}
 
 	.hero__bg {
 		position: absolute;
@@ -85,8 +111,8 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
-		gap: var(--space-5);
+		justify-content: flex-end;
+		gap: calc(var(--space-5) + var(--space-3));
 		padding-top: clamp(3rem, 12vh, 7rem);
 
 		/* Desktop: text sits at the bottom, over the arrows' sparse upper-left
@@ -148,7 +174,7 @@
 
 /* --- src/blocks/title-text.css --- */
 .title-text {
-	padding-block: var(--space-6);
+	padding-block: var(--space-5);
 
 	.title-text__title {
 		margin: 0;

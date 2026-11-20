@@ -13,6 +13,21 @@
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-4);
+		container-type: inline-size;
+
+		/* Three logos plus their gaps need roughly 37rem; narrower than that
+		   they stack, rather than leaving one stranded on a second line. */
+		@container (max-width: 38rem) {
+			.footer__logos {
+				flex-direction: column;
+				align-items: flex-start;
+				row-gap: var(--space-4);
+			}
+
+			.footer__meta {
+				flex-basis: 100%;
+			}
+		}
 	}
 
 	.footer__logos {
@@ -42,6 +57,11 @@
 		align-items: center;
 		gap: var(--space-2) var(--space-5);
 		font-size: var(--fs-small);
+
+		@media (max-width: 767px) {
+			flex-direction: column;
+			align-items: flex-start;
+		}
 	}
 
 	.footer__email {

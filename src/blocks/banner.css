@@ -27,4 +27,20 @@
 	.banner__content > :last-child {
 		margin-bottom: 0;
 	}
+
+	@media (max-width: 767px) {
+		.banner__box {
+			align-items: flex-start;
+			gap: var(--space-3);
+		}
+
+		.banner__icon {
+			height: 2rem;
+		}
+
+		.banner__divider {
+			align-self: stretch;
+			height: auto;
+		}
+	}
 }
