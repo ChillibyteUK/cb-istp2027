@@ -1857,6 +1857,7 @@ article h2[id] {
 
 		.banner .banner__icon {
 			height: 2rem;
+			max-height: 1.5rem;
 		}
 
 		.banner .banner__divider {

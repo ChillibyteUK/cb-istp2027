@@ -36,6 +36,7 @@
 
 		.banner__icon {
 			height: 2rem;
+			max-height: 1.5rem;
 		}
 
 		.banner__divider {
