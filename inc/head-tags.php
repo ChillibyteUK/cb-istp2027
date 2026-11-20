@@ -31,6 +31,19 @@ function cb_istp2027_preload_fonts() {
 add_action( 'wp_head', 'cb_istp2027_preload_fonts', 1 );
 
 /**
+ * CookieYes consent banner. Must print before any analytics/tag script so it
+ * can block them until consent is given — hence priority 1, registered ahead
+ * of cb_istp2027_head_tags(). Runs for everyone, logged-in users included, so
+ * the banner can be tested.
+ *
+ * @return void
+ */
+function cb_istp2027_cookieyes() {
+	echo '<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/b488ecb212a19fe28f1dc45f04d682ef/script.js"></script>' . "\n"; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript -- must load first, unenqueued.
+}
+add_action( 'wp_head', 'cb_istp2027_cookieyes', 1 );
+
+/**
  * GA/GTM tags and search-engine verification meta — all read from the
  * Site-Wide Settings options page. GA/GTM only fire for logged-out
  * visitors.
