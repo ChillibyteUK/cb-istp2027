@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cb-istp2027/icon-cards",
+	"title": "Icon Cards",
+	"category": "cb-istp2027",
+	"icon": "screenoptions",
+	"attributes": {
+		"title": { "type": "string", "default": "" },
+		"cards": { "type": "array", "default": [] }
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": true,
+		"color": {
+			"background": true,
+			"text": false,
+			"link": false
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

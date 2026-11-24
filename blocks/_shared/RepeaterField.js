@@ -51,6 +51,21 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 	// Adding, moving and removing rows, with a slide and highlight on a move and focus kept on the arrow used.
 	const { keys, setRowRef, movedKey, addRow, moveRow, removeRow } = useRowMotion( rows, onChange );
 
+	// Column layout has no shared column header, so image and file fields
+	// need their own visible label (text-type fields get one from their control).
+	function withColumnLabel( field, control ) {
+		if ( ! isColumn ) {
+			return control;
+		}
+
+		return (
+			<div className="cb-istp2027-editor-field" key={ field.name }>
+				<span className="cb-istp2027-editor-field__label">{ field.label }</span>
+				{ control }
+			</div>
+		);
+	}
+
 	function confirmRemove( index ) {
 		// eslint-disable-next-line no-alert -- a plain confirm() is enough
 		// friction for an irreversible remove; no undo exists for this field.
@@ -96,7 +111,8 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 					<span className="cb-istp2027-repeater-field__number">{ index + 1 }</span>
 					{ fields.map( ( field ) => {
 						if ( 'image' === field.type ) {
-							return (
+							return withColumnLabel(
+								field,
 								<MediaUploadCheck key={ field.name }>
 									<MediaUpload
 										onSelect={ ( media ) =>
@@ -153,7 +169,8 @@ export default function RepeaterField( { label, value, onChange, fields, emptyRo
 						}
 
 						if ( 'file' === field.type ) {
-							return (
+							return withColumnLabel(
+								field,
 								<MediaUploadCheck key={ field.name }>
 									<MediaUpload
 										onSelect={ ( media ) =>
