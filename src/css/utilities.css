@@ -20,6 +20,7 @@
 .text-start { text-align: left; }
 .text-center { text-align: center; }
 .text-end { text-align: right; }
+.fw-300 { font-weight: var(--fw-300); }
 .fw-400 { font-weight: var(--fw-400); }
 .fw-500 { font-weight: var(--fw-500); }
 .fw-600 { font-weight: var(--fw-600); }

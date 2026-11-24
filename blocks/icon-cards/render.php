@@ -49,18 +49,12 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'icon-card
 					<div class="<?php echo esc_attr( $col_class ); ?>">
 						<div class="icon-cards__card reveal" style="--reveal-delay: <?php echo esc_attr( min( $index, 5 ) * 0.1 ); ?>s">
 							<?php
-							if ( $icon_id ) {
-								echo wp_get_attachment_image(
-									$icon_id,
-									'medium',
-									false,
-									array(
-										'class'    => 'icon-cards__icon',
-										'alt'      => '',
-										'loading'  => 'lazy',
-										'decoding' => 'async',
-									)
-								);
+							$icon_url = $icon_id ? wp_get_attachment_url( $icon_id ) : '';
+							if ( $icon_url ) {
+								// Root-relative so the mask isn't a cross-origin fetch on a second hostname.
+								?>
+								<span class="icon-cards__icon" style="--icon-url: url('<?php echo esc_url( wp_make_link_relative( $icon_url ) ); ?>')" aria-hidden="true"></span>
+								<?php
 							}
 							?>
 							<div class="icon-cards__body">

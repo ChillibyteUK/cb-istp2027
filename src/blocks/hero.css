@@ -1,6 +1,6 @@
 .hero {
 	--hero-fs-eyebrow: clamp(1.5rem, 1rem + 2.2vw, 2.75rem);
-	--hero-fs-title: clamp(2.25rem, 1.2rem + 4vw, 5rem);
+	--hero-fs-title: var(--fs-h1);
 	--hero-fs-details: clamp(1.05rem, 0.85rem + 1vw, 1.875rem);
 
 	/* Murmuration width — half the hero on desktop (as in the design), never
@@ -11,13 +11,12 @@
 
 	position: relative;
 	display: grid;
-	font-family: var(--font-family-hero);
 	min-height: 100vh;
 	min-height: 100svh;
 	overflow: hidden;
 	color: var(--col-white);
 	background-color: var(--col-navy);
-	font-weight: 300;
+	font-weight: var(--fw-400);
 
 	@media (max-width: 767px) {
 		min-height: min(100svh, 562px);
@@ -86,6 +85,7 @@
 	.hero__eyebrow {
 		margin: 0 0 var(--space-2);
 		font-size: var(--hero-fs-eyebrow);
+		font-weight: var(--fw-300);
 		line-height: 1.1;
 		color: var(--col-teal);
 	}
@@ -93,11 +93,15 @@
 	.hero__title {
 		margin: 0 0 var(--space-4);
 		font-size: var(--hero-fs-title);
-		font-weight: 300;
+		font-weight: var(--fw-300);
 		line-height: 1.1;
 		letter-spacing: -0.01em;
 		color: var(--col-white);
 		text-wrap: balance;
+	}
+
+	.hero__button {
+		margin-top: var(--space-4);
 	}
 
 	.hero__details {
@@ -108,6 +112,7 @@
 		padding: 0;
 		list-style: none;
 		font-size: var(--hero-fs-details);
+		font-weight: var(--fw-300);
 		line-height: 1.2;
 		color: var(--col-teal);
 

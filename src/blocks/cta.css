@@ -1,0 +1,13 @@
+.cta {
+	padding-block: var(--space-5);
+	text-align: center;
+
+	.cta__title {
+		margin: 0 0 var(--space-4);
+		text-wrap: balance;
+	}
+
+	.cta__title:last-child {
+		margin-bottom: 0;
+	}
+}

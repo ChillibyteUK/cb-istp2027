@@ -56,7 +56,8 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: var(--space-2) var(--space-5);
-		font-size: var(--fs-small);
+		font-size: var(--fs-base);
+		font-weight: var(--fw-500);
 
 		@media (max-width: 767px) {
 			flex-direction: column;
@@ -68,18 +69,22 @@
 		display: inline-flex;
 		align-items: center;
 		gap: var(--space-2);
+		min-height: 2.75rem;
 		text-decoration: underline;
 	}
 
 	.footer__links {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-2);
+		gap: 0;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 
 		a {
+			display: inline-flex;
+			align-items: center;
+			min-height: 2.75rem;
 			text-decoration: underline;
 		}
 	}

@@ -30,21 +30,9 @@
           "origin": "theme"
         },
         {
-          "name": "grey-700",
-          "slug": "grey-700",
-          "color": "#4a4a4a",
-          "origin": "theme"
-        },
-        {
-          "name": "grey-900",
-          "slug": "grey-900",
-          "color": "#1a1a1a",
-          "origin": "theme"
-        },
-        {
-          "name": "blue-700",
-          "slug": "blue-700",
-          "color": "#1d4ed8",
+          "name": "navy",
+          "slug": "navy",
+          "color": "#0a163a",
           "origin": "theme"
         },
         {
@@ -56,31 +44,55 @@
         {
           "name": "teal-deep",
           "slug": "teal-deep",
-          "color": "#026d73",
+          "color": "#2f6e6c",
           "origin": "theme"
         },
         {
-          "name": "navy",
-          "slug": "navy",
-          "color": "#0a163a",
+          "name": "pale-teal",
+          "slug": "pale-teal",
+          "color": "#d6e8e8",
+          "origin": "theme"
+        },
+        {
+          "name": "amber",
+          "slug": "amber",
+          "color": "#f4b23e",
+          "origin": "theme"
+        },
+        {
+          "name": "ink",
+          "slug": "ink",
+          "color": "#231f20",
           "origin": "theme"
         },
         {
           "name": "slate",
           "slug": "slate",
-          "color": "#1d2647",
+          "color": "#44506a",
           "origin": "theme"
         },
         {
-          "name": "mist",
-          "slug": "mist",
-          "color": "#d6e8e8",
+          "name": "teal-light",
+          "slug": "teal-light",
+          "color": "#8fcbc7",
           "origin": "theme"
         },
         {
-          "name": "indigo",
-          "slug": "indigo",
-          "color": "#2c2a6b",
+          "name": "amber-hover",
+          "slug": "amber-hover",
+          "color": "#ffc75e",
+          "origin": "theme"
+        },
+        {
+          "name": "error",
+          "slug": "error",
+          "color": "#b42318",
+          "origin": "theme"
+        },
+        {
+          "name": "line",
+          "slug": "line",
+          "color": "#c9d6dc",
           "origin": "theme"
         }
       ]
@@ -88,39 +100,29 @@
     "typography": {
       "fontSizes": [
         {
-          "name": "base",
-          "slug": "base",
-          "size": "1rem"
-        },
-        {
-          "name": "lede",
-          "slug": "lede",
-          "size": "clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem)"
-        },
-        {
           "name": "h1",
           "slug": "h1",
-          "size": "clamp(2.5rem, 1.9rem + 3vw, 4.5rem)"
+          "size": "clamp(2.5rem, 1.756rem + 3.175vw, 4.375rem)"
         },
         {
           "name": "h2",
           "slug": "h2",
-          "size": "clamp(2.25rem, 1.4rem + 3.2vw, 4rem)"
+          "size": "clamp(1.75rem, 1.353rem + 1.693vw, 2.75rem)"
         },
         {
           "name": "h3",
           "slug": "h3",
-          "size": "clamp(1.4rem, 1.2rem + 1vw, 2rem)"
+          "size": "1.25rem"
         },
         {
           "name": "h4",
           "slug": "h4",
-          "size": "clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem)"
+          "size": "1.125rem"
         },
         {
           "name": "h5",
           "slug": "h5",
-          "size": "1.125rem"
+          "size": "1rem"
         },
         {
           "name": "h6",
@@ -128,8 +130,23 @@
           "size": "1rem"
         },
         {
-          "name": "small",
-          "slug": "small",
+          "name": "lede",
+          "slug": "lede",
+          "size": "clamp(1.125rem, 1.075rem + 0.212vw, 1.25rem)"
+        },
+        {
+          "name": "body",
+          "slug": "body",
+          "size": "clamp(1rem, 0.95rem + 0.212vw, 1.125rem)"
+        },
+        {
+          "name": "base",
+          "slug": "base",
+          "size": "1rem"
+        },
+        {
+          "name": "meta",
+          "slug": "meta",
           "size": "0.875rem"
         }
       ]

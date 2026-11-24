@@ -1,9 +1,13 @@
 .icon-cards {
 	padding-block: var(--space-5);
 
+	/* Pale teal unless a background colour is chosen in the editor. */
+	&:not(.has-background) {
+		background-color: var(--col-pale-teal);
+	}
+
 	.icon-cards__title {
 		margin: 0 0 var(--space-4);
-		color: var(--col-indigo);
 		text-wrap: balance;
 	}
 
@@ -19,23 +23,23 @@
 		height: 100%;
 		padding: var(--space-4);
 		background: var(--col-white);
+		--col-heading: var(--col-teal-deep);
+		--col-body: var(--col-ink);
+		color: var(--col-ink);
 	}
 
-	/* SVGs often carry only a viewBox, so the box has to be definite. */
+	/* The icon file is a mask over brand teal, so any SVG/PNG takes the colour. */
 	.icon-cards__icon {
 		flex: none;
 		width: 3rem;
 		height: 3rem;
-		object-fit: contain;
-		object-position: left top;
+		background-color: var(--col-teal);
+		mask: var(--icon-url) left top / contain no-repeat;
+		-webkit-mask: var(--icon-url) left top / contain no-repeat;
 	}
 
 	.icon-cards__card-title {
 		margin: 0 0 var(--space-2);
-		font-size: var(--fs-base);
-		font-weight: var(--fw-700);
-		letter-spacing: 0.02em;
-		text-transform: uppercase;
 	}
 
 	.icon-cards__body > :last-child {

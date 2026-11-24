@@ -1,4 +1,4 @@
-/* Webfonts — self-hosted variable DM Sans (hero) and Lexend (body), latin,
+/* Webfonts — self-hosted variable DM Sans for everything, latin,
    preloaded via inc/head-tags.php */
 @font-face {
 	font-family: "DM Sans";
@@ -8,19 +8,11 @@
 	src: url("../fonts/DMSans-Variable.woff2") format("woff2");
 }
 
-@font-face {
-	font-family: "Lexend";
-	font-style: normal;
-	font-weight: 100 900;
-	font-display: swap;
-	src: url("../fonts/Lexend-Variable.woff2") format("woff2");
-}
-
 /* The "Lede" format in the block editor (blocks/_editor-formats) applies this
    class to a selection — typically the first paragraph of body copy. */
 .text-body-l-medium {
 	font-size: var(--fs-lede);
-	font-weight: var(--fw-500);
+	font-weight: var(--fw-400);
 	line-height: 1.4;
 }
 

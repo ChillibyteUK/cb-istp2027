@@ -42,31 +42,62 @@ select {
 	display: block;
 	width: 100%;
 	padding: var(--space-2);
-	border: 1px solid var(--col-grey-300);
-	border-radius: var(--radius-sm);
+	min-height: 3rem;
+	border: 1px solid var(--col-slate);
+	border-radius: var(--radius-btn);
 	background-color: var(--col-white);
 	color: var(--col-body);
-
-	&:focus-visible {
-		outline: 2px solid var(--col-primary);
-		outline-offset: 1px;
-	}
+	font: inherit;
 }
 
+/* Buttons — 48px tall, 3px corners (style guide p7). Default is the deep teal
+   secondary; amber primary is for dark backgrounds only and the Registration
+   CTA only. Focus ring comes from base.css. */
 .btn,
 .gform_button,
 .wp-block-button__link {
-	display: inline-block;
-	padding: var(--space-2) var(--space-3);
-	border: 1px solid var(--col-primary);
-	border-radius: var(--radius-sm);
-	background-color: var(--col-primary);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	min-height: 3rem;
+	padding: 0 var(--space-4);
+	border: 2px solid var(--col-teal-deep);
+	border-radius: var(--radius-btn);
+	background-color: var(--col-teal-deep);
 	color: var(--col-white);
+	font-size: var(--fs-base);
+	font-weight: var(--fw-500);
+	line-height: 1;
 	text-decoration: none;
 	cursor: pointer;
+}
 
-	&:focus-visible {
-		outline: 2px solid var(--col-primary);
-		outline-offset: 2px;
+.btn svg {
+	flex: none;
+	width: 1.25em;
+	height: 1.25em;
+}
+
+.btn-primary {
+	border-color: var(--col-amber);
+	background-color: var(--col-amber);
+	color: var(--col-navy);
+
+	&:hover {
+		border-color: var(--col-amber-hover);
+		background-color: var(--col-amber-hover);
 	}
+}
+
+.btn-outline {
+	border-color: var(--col-white);
+	background-color: transparent;
+	color: var(--col-white);
+}
+
+.btn-light {
+	border-color: var(--col-white);
+	background-color: var(--col-white);
+	color: var(--col-navy);
 }

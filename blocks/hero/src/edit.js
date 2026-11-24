@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { TextControl, TextareaControl, Button } from '@wordpress/components';
+import { TextControl, TextareaControl, ToggleControl, RadioControl, Button } from '@wordpress/components';
+import SiteUrlInput from '../../_shared/SiteUrlInput';
 import EditorBlockShell from '../../_shared/EditorBlockShell';
 
 function ImageField( { label, id, url, onSelect, onClear } ) {
@@ -38,7 +39,7 @@ function ImageField( { label, id, url, onSelect, onClear } ) {
 }
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-	const { backgroundId, backgroundUrl, logoId, logoUrl, logoAlt, eyebrow, title, details } = attributes;
+	const { backgroundId, backgroundUrl, logoId, logoUrl, logoAlt, eyebrow, title, details, linkText, linkUrl, linkTarget, buttonStyle } = attributes;
 	const blockProps = useBlockProps( { className: 'container cb-istp2027-editor-block' } );
 
 	return (
@@ -78,6 +79,35 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				onChange={ ( value ) => setAttributes( { details: value } ) }
 				help={ __( 'One item per line — bullets are added between them.', 'cb-istp2027' ) }
 			/>
+			<div className="cb-istp2027-editor-field-pair">
+				<TextControl
+					label={ __( 'Button text', 'cb-istp2027' ) }
+					value={ linkText }
+					onChange={ ( value ) => setAttributes( { linkText: value } ) }
+				/>
+				<SiteUrlInput
+					label={ __( 'Button URL', 'cb-istp2027' ) }
+					value={ linkUrl || '' }
+					onChange={ ( value ) => setAttributes( { linkUrl: value } ) }
+				/>
+			</div>
+			<ToggleControl
+				label={ __( 'Open button link in a new tab', 'cb-istp2027' ) }
+				checked={ linkTarget }
+				onChange={ ( value ) => setAttributes( { linkTarget: value } ) }
+			/>
+			<div className="cb-istp2027-radio-inline">
+				<RadioControl
+					label={ __( 'Button style', 'cb-istp2027' ) }
+					selected={ buttonStyle }
+					options={ [
+						{ label: __( 'Primary', 'cb-istp2027' ), value: 'primary' },
+						{ label: __( 'Secondary', 'cb-istp2027' ), value: 'secondary' },
+						{ label: __( 'Light', 'cb-istp2027' ), value: 'light' },
+					] }
+					onChange={ ( value ) => setAttributes( { buttonStyle: value } ) }
+				/>
+			</div>
 		</EditorBlockShell>
 	);
 }

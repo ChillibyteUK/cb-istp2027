@@ -72,6 +72,20 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'hero' ) )
 				</ul>
 				<?php
 			}
+
+			$link_text = $attributes['linkText'] ?? '';
+			$link_url  = $attributes['linkUrl'] ?? '';
+			if ( $link_text && $link_url ) {
+				$button_classes = array(
+					'primary'   => 'btn btn-primary',
+					'secondary' => 'btn',
+					'light'     => 'btn btn-light',
+				);
+				$button_class   = $button_classes[ $attributes['buttonStyle'] ?? 'primary' ] ?? $button_classes['primary'];
+				?>
+				<a class="hero__button <?php echo esc_attr( $button_class ); ?>" href="<?php echo esc_url( $link_url ); ?>"<?php echo ! empty( $attributes['linkTarget'] ) ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo cb_istp2027_is_external_url( $link_url ) ? cb_istp2027_external_link_icon() : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static SVG. ?><?php echo esc_html( $link_text ); ?></a>
+				<?php
+			}
 			?>
 		</div>
 	</div>

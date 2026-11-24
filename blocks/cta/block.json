@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cb-istp2027/cta",
+	"title": "CTA",
+	"category": "cb-istp2027",
+	"icon": "megaphone",
+	"attributes": {
+		"title": { "type": "string", "default": "" },
+		"linkText": { "type": "string", "default": "" },
+		"linkUrl": { "type": "string", "default": "" },
+		"linkTarget": { "type": "boolean", "default": false },
+		"buttonStyle": { "type": "string", "default": "secondary" }
+	},
+	"supports": {
+		"anchor": true,
+		"className": true,
+		"align": true,
+		"color": {
+			"background": true,
+			"text": false,
+			"link": false
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

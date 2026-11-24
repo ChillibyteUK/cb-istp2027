@@ -6,14 +6,22 @@
 		align-items: center;
 		gap: 2.5rem;
 		padding: var(--space-3) var(--space-4);
-		background: var(--col-mist);
+		background: var(--col-pale-teal);
 	}
 
+	/* The uploaded file is a mask over deep teal, so any SVG/PNG takes the colour. */
 	.banner__icon {
 		flex: none;
-		width: auto;
+		width: 3rem;
 		height: 3rem;
-		color: var(--col-navy);
+		background-color: var(--col-teal-deep);
+		mask: var(--icon-url) center / contain no-repeat;
+		-webkit-mask: var(--icon-url) center / contain no-repeat;
+	}
+
+	.banner__title {
+		margin: 0 0 var(--space-2);
+		font-size: var(--fs-h3);
 	}
 
 	.banner__divider {
@@ -21,7 +29,7 @@
 		align-self: center;
 		width: 3px;
 		height: 3rem;
-		background: var(--col-navy);
+		background: var(--col-teal-deep);
 	}
 
 	.banner__content > :last-child {
@@ -35,8 +43,8 @@
 		}
 
 		.banner__icon {
-			height: 2rem;
-			max-height: 1.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
 		}
 
 		.banner__divider {

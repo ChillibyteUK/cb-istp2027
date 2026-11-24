@@ -8,30 +8,35 @@
  */
 
 :root {
-  /* Colour palette — rename/replace per project, keep the slug shape */
+  /* Colour palette — ISTP 2027 style guide v1.0 (24 Nov 2026) is the source
+     of truth. Slugs here become the editor palette via generate-theme-json. */
   --col-white: #ffffff;
   --col-black: #000000;
   --col-grey-100: #f5f5f5;
   --col-grey-300: #d9d9d9;
-  --col-grey-700: #4a4a4a;
-  --col-grey-900: #1a1a1a;
-  --col-blue-700: #1d4ed8;
 
-  /* ISTP 2027 brand — colours.png */
-  --col-teal: #619e9c;
-  --col-teal-deep: #026d73;
-  --col-navy: #0a163a;
-  --col-slate: #1d2647;
-  --col-mist: #d6e8e8;
-  --col-indigo: #2c2a6b;
+  --col-navy: #0a163a; /* header, hero, footer; text on pale teal */
+  --col-teal: #619e9c; /* brand teal — feature bands and large text only */
+  --col-teal-deep: #2f6e6c; /* headings, secondary buttons, links, icons */
+  --col-pale-teal: #d6e8e8; /* band backgrounds */
+  --col-amber: #f4b23e; /* main action, dark backgrounds only */
+  --col-ink: #231f20; /* paragraphs and card copy */
+  --col-slate: #44506a; /* secondary text, form borders */
 
-  --col-primary: var(--col-blue-700);
-  --col-body: var(--col-indigo);
+  /* Supporting colours */
+  --col-teal-light: #8fcbc7; /* headings, links, icons in dark mode */
+  --col-amber-hover: #ffc75e;
+  --col-error: #b42318;
+  --col-line: #c9d6dc; /* dividers, card outlines */
+
+  --col-primary: var(--col-teal-deep);
+  --col-body: var(--col-ink);
   --col-body-bg: var(--col-white);
-  --col-heading: var(--col-grey-900);
+  --col-heading: var(--col-teal-deep);
 
-  /* Hero overlay gradient — teal bottom-left, through navy, to slate at the
-     right. Slightly translucent so the photo reads faintly through it. */
+  /* Gradients — hero overlay is the original translucent one so the photo
+     reads through it (the guide's opaque 67.5deg hero gradient would hide it).
+     Band gradient is the guide's, 100deg. */
   --gradient-hero: linear-gradient(
     70deg,
     rgb(2 109 115 / 1) 0%,
@@ -39,20 +44,24 @@
     rgb(10 22 58 / 0.95) 62%,
     rgb(29 38 71 / 0.93) 100%
   );
+  --gradient-band: linear-gradient(100deg, #00706e 0%, #0a3a52 22%, #0a163a 50%, #1d2448 100%);
 
-  /* Type scale — DM Sans (provisional), roughly a 1.25 ratio, fluid via
-     clamp() between a 375px and a ~1320px viewport. */
-  --font-family-base: "Lexend", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-family-hero: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --fs-base: 1rem;
-  --fs-lede: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
-  --fs-h1: clamp(2.5rem, 1.9rem + 3vw, 4.5rem);
-  --fs-h2: clamp(2.25rem, 1.4rem + 3.2vw, 4rem);
-  --fs-h3: clamp(1.4rem, 1.2rem + 1vw, 2rem);
-  --fs-h4: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
-  --fs-h5: 1.125rem;
+  /* Type — DM Sans for everything, no other typeface. Sizes come from the
+     style guide's desktop / mobile px pairs, converted to rem and interpolated
+     with clamp() between a 375px and a 1320px viewport. Nothing people read is
+     under 1rem; --fs-meta (0.875rem) is for short labels only. */
+  --font-family-base: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs-h1: clamp(2.5rem, 1.756rem + 3.175vw, 4.375rem); /* Display, 40 / 70px, 300 */
+  --fs-h2: clamp(1.75rem, 1.353rem + 1.693vw, 2.75rem); /* 28 / 44px, 700 */
+  --fs-h3: 1.25rem; /* 20px, 700 */
+  --fs-h4: 1.125rem;
+  --fs-h5: 1rem;
   --fs-h6: 1rem;
-  --fs-small: 0.875rem;
+  --fs-lede: clamp(1.125rem, 1.075rem + 0.212vw, 1.25rem); /* Lead, 18 / 20px, 400 */
+  --fs-body: clamp(1rem, 0.95rem + 0.212vw, 1.125rem); /* Body, 16 / 18px, 400 */
+  --fs-base: 1rem; /* UI and navigation, 16px */
+  --fs-meta: 0.875rem; /* Meta, 14px, 500 */
+  --fw-300: 300;
   --fw-400: 400;
   --fw-500: 500;
   --fw-600: 600;
@@ -80,6 +89,7 @@
 
   /* Radii / shadows / motion */
   --radius-sm: 0.25rem;
+  --radius-btn: 0.1875rem; /* 3px */
   --radius-lg: 0.5rem;
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
   --shadow-lg: 0 8px 24px rgb(0 0 0 / 0.12);

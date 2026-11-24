@@ -8,30 +8,35 @@
  */
 
 :root {
-  /* Colour palette — rename/replace per project, keep the slug shape */
+  /* Colour palette — ISTP 2027 style guide v1.0 (24 Nov 2026) is the source
+     of truth. Slugs here become the editor palette via generate-theme-json. */
   --col-white: #ffffff;
   --col-black: #000000;
   --col-grey-100: #f5f5f5;
   --col-grey-300: #d9d9d9;
-  --col-grey-700: #4a4a4a;
-  --col-grey-900: #1a1a1a;
-  --col-blue-700: #1d4ed8;
 
-  /* ISTP 2027 brand — colours.png */
-  --col-teal: #619e9c;
-  --col-teal-deep: #026d73;
-  --col-navy: #0a163a;
-  --col-slate: #1d2647;
-  --col-mist: #d6e8e8;
-  --col-indigo: #2c2a6b;
+  --col-navy: #0a163a; /* header, hero, footer; text on pale teal */
+  --col-teal: #619e9c; /* brand teal — feature bands and large text only */
+  --col-teal-deep: #2f6e6c; /* headings, secondary buttons, links, icons */
+  --col-pale-teal: #d6e8e8; /* band backgrounds */
+  --col-amber: #f4b23e; /* main action, dark backgrounds only */
+  --col-ink: #231f20; /* paragraphs and card copy */
+  --col-slate: #44506a; /* secondary text, form borders */
 
-  --col-primary: var(--col-blue-700);
-  --col-body: var(--col-indigo);
+  /* Supporting colours */
+  --col-teal-light: #8fcbc7; /* headings, links, icons in dark mode */
+  --col-amber-hover: #ffc75e;
+  --col-error: #b42318;
+  --col-line: #c9d6dc; /* dividers, card outlines */
+
+  --col-primary: var(--col-teal-deep);
+  --col-body: var(--col-ink);
   --col-body-bg: var(--col-white);
-  --col-heading: var(--col-grey-900);
+  --col-heading: var(--col-teal-deep);
 
-  /* Hero overlay gradient — teal bottom-left, through navy, to slate at the
-     right. Slightly translucent so the photo reads faintly through it. */
+  /* Gradients — hero overlay is the original translucent one so the photo
+     reads through it (the guide's opaque 67.5deg hero gradient would hide it).
+     Band gradient is the guide's, 100deg. */
   --gradient-hero: linear-gradient(
     70deg,
     rgb(2 109 115 / 1) 0%,
@@ -39,20 +44,24 @@
     rgb(10 22 58 / 0.95) 62%,
     rgb(29 38 71 / 0.93) 100%
   );
+  --gradient-band: linear-gradient(100deg, #00706e 0%, #0a3a52 22%, #0a163a 50%, #1d2448 100%);
 
-  /* Type scale — DM Sans (provisional), roughly a 1.25 ratio, fluid via
-     clamp() between a 375px and a ~1320px viewport. */
-  --font-family-base: "Lexend", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-family-hero: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --fs-base: 1rem;
-  --fs-lede: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
-  --fs-h1: clamp(2.5rem, 1.9rem + 3vw, 4.5rem);
-  --fs-h2: clamp(2.25rem, 1.4rem + 3.2vw, 4rem);
-  --fs-h3: clamp(1.4rem, 1.2rem + 1vw, 2rem);
-  --fs-h4: clamp(1.2rem, 1.1rem + 0.5vw, 1.5rem);
-  --fs-h5: 1.125rem;
+  /* Type — DM Sans for everything, no other typeface. Sizes come from the
+     style guide's desktop / mobile px pairs, converted to rem and interpolated
+     with clamp() between a 375px and a 1320px viewport. Nothing people read is
+     under 1rem; --fs-meta (0.875rem) is for short labels only. */
+  --font-family-base: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs-h1: clamp(2.5rem, 1.756rem + 3.175vw, 4.375rem); /* Display, 40 / 70px, 300 */
+  --fs-h2: clamp(1.75rem, 1.353rem + 1.693vw, 2.75rem); /* 28 / 44px, 700 */
+  --fs-h3: 1.25rem; /* 20px, 700 */
+  --fs-h4: 1.125rem;
+  --fs-h5: 1rem;
   --fs-h6: 1rem;
-  --fs-small: 0.875rem;
+  --fs-lede: clamp(1.125rem, 1.075rem + 0.212vw, 1.25rem); /* Lead, 18 / 20px, 400 */
+  --fs-body: clamp(1rem, 0.95rem + 0.212vw, 1.125rem); /* Body, 16 / 18px, 400 */
+  --fs-base: 1rem; /* UI and navigation, 16px */
+  --fs-meta: 0.875rem; /* Meta, 14px, 500 */
+  --fw-300: 300;
   --fw-400: 400;
   --fw-500: 500;
   --fw-600: 600;
@@ -80,6 +89,7 @@
 
   /* Radii / shadows / motion */
   --radius-sm: 0.25rem;
+  --radius-btn: 0.1875rem; /* 3px */
   --radius-lg: 0.5rem;
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
   --shadow-lg: 0 8px 24px rgb(0 0 0 / 0.12);
@@ -118,8 +128,8 @@ html {
 body {
 	margin: 0;
 	font-family: var(--font-family-base);
-	font-size: var(--fs-base);
-	font-weight: var(--fw-500);
+	font-size: var(--fs-body);
+	font-weight: var(--fw-400);
 	line-height: var(--line-height-base);
 	color: var(--col-body);
 	background-color: var(--col-body-bg);
@@ -134,7 +144,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 var(--space-3);
-	font-weight: var(--fw-500);
+	font-weight: var(--fw-700);
 	line-height: var(--line-height-heading);
 	color: var(--col-heading);
 	letter-spacing: -0.015em;
@@ -143,6 +153,7 @@ h6 {
 
 h1 {
 	font-size: var(--fs-h1);
+	font-weight: var(--fw-300);
 }
 h2 {
 	font-size: var(--fs-h2);
@@ -165,19 +176,36 @@ p {
 	text-wrap: pretty;
 }
 
+/* Links are always underlined (style guide). Buttons and nav items carry their
+   own class and switch the underline off themselves. */
 a {
-	color: var(--col-primary);
-	text-decoration: none;
+	color: var(--col-teal-deep);
+	text-decoration: underline;
+	text-underline-offset: 0.15em;
 }
 
-/*
- * Underline-on-hover only for plain content links (no class) — cards,
- * buttons, nav items, and social/icon links all carry their own class and
- * define their own hover treatment, so they're excluded here rather than
- * needing a `text-decoration: none` override per component.
- */
-a:not([class]):hover {
-	text-decoration: underline;
+/* Dark backgrounds: links, headings and text are white. */
+:is(#footer, .hero, .has-navy-background-color) {
+	--col-heading: var(--col-white);
+	--col-body: var(--col-white);
+}
+:is(#footer,.hero,.has-navy-background-color) a:not(.btn) {
+		color: var(--col-white);
+	}
+
+/* Brand teal: headings white; body copy goes in a white card. */
+.has-teal-background-color {
+	--col-heading: var(--col-white);
+}
+
+/* Focus ring: 3px, navy on light, amber on dark. */
+:focus-visible {
+	outline: 3px solid var(--col-navy);
+	outline-offset: 2px;
+}
+
+:is(#footer, .hero, .has-navy-background-color) :focus-visible {
+	outline-color: var(--col-amber);
 }
 
 img,
@@ -266,7 +294,7 @@ ol {
 	text-underline-offset: 0.15em;
 }
 
-/* Webfonts — self-hosted variable DM Sans (hero) and Lexend (body), latin,
+/* Webfonts — self-hosted variable DM Sans for everything, latin,
    preloaded via inc/head-tags.php */
 @font-face {
 	font-family: "DM Sans";
@@ -276,19 +304,11 @@ ol {
 	src: url("../fonts/DMSans-Variable.woff2") format("woff2");
 }
 
-@font-face {
-	font-family: "Lexend";
-	font-style: normal;
-	font-weight: 100 900;
-	font-display: swap;
-	src: url("../fonts/Lexend-Variable.woff2") format("woff2");
-}
-
 /* The "Lede" format in the block editor (blocks/_editor-formats) applies this
    class to a selection — typically the first paragraph of body copy. */
 .text-body-l-medium {
 	font-size: var(--fs-lede);
-	font-weight: var(--fw-500);
+	font-weight: var(--fw-400);
 	line-height: 1.4;
 }
 
@@ -481,6 +501,8 @@ ol {
 	display: block;
 	text-decoration: none;
 	color: var(--col-body);
+	font-size: var(--fs-base);
+	font-weight: var(--fw-400);
 	padding: var(--space-1) 0;
 }
 
@@ -619,7 +641,8 @@ ol {
 		flex-wrap: wrap;
 		align-items: center;
 		gap: var(--space-2) var(--space-5);
-		font-size: var(--fs-small);
+		font-size: var(--fs-base);
+		font-weight: var(--fw-500);
 	}
 
 @media (max-width: 767px) {
@@ -634,19 +657,23 @@ ol {
 		display: inline-flex;
 		align-items: center;
 		gap: var(--space-2);
+		min-height: 2.75rem;
 		text-decoration: underline;
 	}
 
 #footer .footer__links {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-2);
+		gap: 0;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
 :is(#footer .footer__links) a {
+			display: inline-flex;
+			align-items: center;
+			min-height: 2.75rem;
 			text-decoration: underline;
 		}
 
@@ -694,34 +721,65 @@ select {
 	display: block;
 	width: 100%;
 	padding: var(--space-2);
-	border: 1px solid var(--col-grey-300);
-	border-radius: var(--radius-sm);
+	min-height: 3rem;
+	border: 1px solid var(--col-slate);
+	border-radius: var(--radius-btn);
 	background-color: var(--col-white);
 	color: var(--col-body);
+	font: inherit;
 }
 
-:is(input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="image"]),textarea,select):focus-visible {
-		outline: 2px solid var(--col-primary);
-		outline-offset: 1px;
-	}
-
+/* Buttons — 48px tall, 3px corners (style guide p7). Default is the deep teal
+   secondary; amber primary is for dark backgrounds only and the Registration
+   CTA only. Focus ring comes from base.css. */
 .btn,
 .gform_button,
 .wp-block-button__link {
-	display: inline-block;
-	padding: var(--space-2) var(--space-3);
-	border: 1px solid var(--col-primary);
-	border-radius: var(--radius-sm);
-	background-color: var(--col-primary);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	min-height: 3rem;
+	padding: 0 var(--space-4);
+	border: 2px solid var(--col-teal-deep);
+	border-radius: var(--radius-btn);
+	background-color: var(--col-teal-deep);
 	color: var(--col-white);
+	font-size: var(--fs-base);
+	font-weight: var(--fw-500);
+	line-height: 1;
 	text-decoration: none;
 	cursor: pointer;
 }
 
-:is(.btn,.gform_button,.wp-block-button__link):focus-visible {
-		outline: 2px solid var(--col-primary);
-		outline-offset: 2px;
+.btn svg {
+	flex: none;
+	width: 1.25em;
+	height: 1.25em;
+}
+
+.btn-primary {
+	border-color: var(--col-amber);
+	background-color: var(--col-amber);
+	color: var(--col-navy);
+}
+
+.btn-primary:hover {
+		border-color: var(--col-amber-hover);
+		background-color: var(--col-amber-hover);
 	}
+
+.btn-outline {
+	border-color: var(--col-white);
+	background-color: transparent;
+	color: var(--col-white);
+}
+
+.btn-light {
+	border-color: var(--col-white);
+	background-color: var(--col-white);
+	color: var(--col-navy);
+}
 
 /* Default Gutenberg quote (core/quote) — structural reset + citation dash.
    Type comes from typography.css where a project maps it, so the editor
@@ -867,6 +925,7 @@ article h2[id] {
 .text-start { text-align: left; }
 .text-center { text-align: center; }
 .text-end { text-align: right; }
+.fw-300 { font-weight: var(--fw-300); }
 .fw-400 { font-weight: var(--fw-400); }
 .fw-500 { font-weight: var(--fw-500); }
 .fw-600 { font-weight: var(--fw-600); }
@@ -1831,20 +1890,27 @@ article h2[id] {
 		align-items: center;
 		gap: 2.5rem;
 		padding: var(--space-3) var(--space-4);
-		background: var(--col-mist);
+		background: var(--col-pale-teal);
 	}
+/* The uploaded file is a mask over deep teal, so any SVG/PNG takes the colour. */
 .banner .banner__icon {
 		flex: none;
-		width: auto;
+		width: 3rem;
 		height: 3rem;
-		color: var(--col-navy);
+		background-color: var(--col-teal-deep);
+		mask: var(--icon-url) center / contain no-repeat;
+		-webkit-mask: var(--icon-url) center / contain no-repeat;
+	}
+.banner .banner__title {
+		margin: 0 0 var(--space-2);
+		font-size: var(--fs-h3);
 	}
 .banner .banner__divider {
 		flex: none;
 		align-self: center;
 		width: 3px;
 		height: 3rem;
-		background: var(--col-navy);
+		background: var(--col-teal-deep);
 	}
 .banner .banner__content > :last-child {
 		margin-bottom: 0;
@@ -1856,8 +1922,8 @@ article h2[id] {
 		}
 
 		.banner .banner__icon {
-			height: 2rem;
-			max-height: 1.5rem;
+			width: 1.5rem;
+			height: 1.5rem;
 		}
 
 		.banner .banner__divider {
@@ -1866,10 +1932,23 @@ article h2[id] {
 		}
 	}
 
+/* --- src/blocks/cta.css --- */
+.cta {
+	padding-block: var(--space-5);
+	text-align: center;
+}
+.cta .cta__title {
+		margin: 0 0 var(--space-4);
+		text-wrap: balance;
+	}
+.cta .cta__title:last-child {
+		margin-bottom: 0;
+	}
+
 /* --- src/blocks/hero.css --- */
 .hero {
 	--hero-fs-eyebrow: clamp(1.5rem, 1rem + 2.2vw, 2.75rem);
-	--hero-fs-title: clamp(2.25rem, 1.2rem + 4vw, 5rem);
+	--hero-fs-title: var(--fs-h1);
 	--hero-fs-details: clamp(1.05rem, 0.85rem + 1vw, 1.875rem);
 
 	/* Murmuration width — half the hero on desktop (as in the design), never
@@ -1880,13 +1959,12 @@ article h2[id] {
 
 	position: relative;
 	display: grid;
-	font-family: var(--font-family-hero);
 	min-height: 100vh;
 	min-height: 100svh;
 	overflow: hidden;
 	color: var(--col-white);
 	background-color: var(--col-navy);
-	font-weight: 300;
+	font-weight: var(--fw-400);
 }
 @media (max-width: 767px) {
 .hero {
@@ -1951,17 +2029,21 @@ article h2[id] {
 .hero .hero__eyebrow {
 		margin: 0 0 var(--space-2);
 		font-size: var(--hero-fs-eyebrow);
+		font-weight: var(--fw-300);
 		line-height: 1.1;
 		color: var(--col-teal);
 	}
 .hero .hero__title {
 		margin: 0 0 var(--space-4);
 		font-size: var(--hero-fs-title);
-		font-weight: 300;
+		font-weight: var(--fw-300);
 		line-height: 1.1;
 		letter-spacing: -0.01em;
 		color: var(--col-white);
 		text-wrap: balance;
+	}
+.hero .hero__button {
+		margin-top: var(--space-4);
 	}
 .hero .hero__details {
 		display: flex;
@@ -1971,6 +2053,7 @@ article h2[id] {
 		padding: 0;
 		list-style: none;
 		font-size: var(--hero-fs-details);
+		font-weight: var(--fw-300);
 		line-height: 1.2;
 		color: var(--col-teal);
 
@@ -1985,10 +2068,14 @@ article h2[id] {
 /* --- src/blocks/icon-cards.css --- */
 .icon-cards {
 	padding-block: var(--space-5);
+
+	/* Pale teal unless a background colour is chosen in the editor. */
 }
+.icon-cards:not(.has-background) {
+		background-color: var(--col-pale-teal);
+	}
 .icon-cards .icon-cards__title {
 		margin: 0 0 var(--space-4);
-		color: var(--col-indigo);
 		text-wrap: balance;
 	}
 .icon-cards .icon-cards__row {
@@ -2002,21 +2089,21 @@ article h2[id] {
 		height: 100%;
 		padding: var(--space-4);
 		background: var(--col-white);
+		--col-heading: var(--col-teal-deep);
+		--col-body: var(--col-ink);
+		color: var(--col-ink);
 	}
-/* SVGs often carry only a viewBox, so the box has to be definite. */
+/* The icon file is a mask over brand teal, so any SVG/PNG takes the colour. */
 .icon-cards .icon-cards__icon {
 		flex: none;
 		width: 3rem;
 		height: 3rem;
-		object-fit: contain;
-		object-position: left top;
+		background-color: var(--col-teal);
+		mask: var(--icon-url) left top / contain no-repeat;
+		-webkit-mask: var(--icon-url) left top / contain no-repeat;
 	}
 .icon-cards .icon-cards__card-title {
 		margin: 0 0 var(--space-2);
-		font-size: var(--fs-base);
-		font-weight: var(--fw-700);
-		letter-spacing: 0.02em;
-		text-transform: uppercase;
 	}
 .icon-cards .icon-cards__body > :last-child {
 		margin-bottom: 0;
@@ -2028,7 +2115,6 @@ article h2[id] {
 }
 .title-text .title-text__title {
 		margin: 0;
-		color: var(--col-teal);
 		text-wrap: balance;
 	}
 .title-text .title-text__body {

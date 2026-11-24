@@ -64,6 +64,8 @@
 	display: block;
 	text-decoration: none;
 	color: var(--col-body);
+	font-size: var(--fs-base);
+	font-weight: var(--fw-400);
 	padding: var(--space-1) 0;
 
 	&.active,

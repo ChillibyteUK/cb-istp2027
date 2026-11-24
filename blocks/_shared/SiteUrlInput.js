@@ -28,6 +28,10 @@ import { URLInput } from '@wordpress/block-editor';
  * @param {Object}   props
  * @param {string}   props.value
  * @param {Function} props.onChange   ( url ) => void
+ * @param {string}   [props.label]    Visible label, rendered inside URLInput's own BaseControl so the
+ *                                    field is padded exactly like a TextControl (don't wrap this in
+ *                                    another BaseControl — that pads it twice).
+ * @param {boolean}  [props.hideLabelFromVision]  Keep the label for screen readers only.
  * @param {string}   [props.placeholder]
  * @param {string}   [props.className]
  */
@@ -52,7 +56,7 @@ export function toSiteRelative( url ) {
 	return url;
 }
 
-export default function SiteUrlInput( { value, onChange, placeholder, className } ) {
+export default function SiteUrlInput( { value, onChange, label, hideLabelFromVision, placeholder, className } ) {
 	const [ active, setActive ] = useState( false );
 	const timer = useRef( null );
 	const justChose = useRef( false );
@@ -92,6 +96,8 @@ export default function SiteUrlInput( { value, onChange, placeholder, className 
 			} }
 		>
 			<URLInput
+				label={ label }
+				hideLabelFromVision={ hideLabelFromVision }
 				value={ value || '' }
 				onChange={ ( url, post ) => {
 					// A second argument means a suggestion was chosen, not text typed.

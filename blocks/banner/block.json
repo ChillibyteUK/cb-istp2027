@@ -6,7 +6,10 @@
 	"category": "cb-istp2027",
 	"icon": "megaphone",
 	"attributes": {
-		"content": { "type": "string", "default": "" }
+		"title": { "type": "string", "default": "" },
+		"content": { "type": "string", "default": "" },
+		"iconId": { "type": "number", "default": 0 },
+		"iconUrl": { "type": "string", "default": "" }
 	},
 	"supports": {
 		"anchor": true,
