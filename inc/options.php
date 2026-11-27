@@ -98,7 +98,23 @@ function cb_istp2027_register_settings_page() {
 					'type'  => 'image',
 				),
 			),
-			'description' => 'Partner logos shown on the left of the footer, in order. The email address (General tab) and a Cookies link to /cookie-policy/ sit on the right.',
+			'description' => 'Partner logos shown on the left of the footer, in order. The email address (General tab) and the Footer Links below sit on the right.',
+		),
+		'footer_links'              => array(
+			'label'       => 'Footer Links',
+			'type'        => 'repeater',
+			'section'     => 'cb_istp2027_footer',
+			'sub_fields'  => array(
+				'label' => array(
+					'label' => 'Label',
+					'type'  => 'text',
+				),
+				'url'   => array(
+					'label' => 'URL (e.g. /privacy-policy/)',
+					'type'  => 'text',
+				),
+			),
+			'description' => 'Colophon links (Privacy, Cookies etc.) shown bottom right of the footer, in order. If empty, a Cookies link to /cookie-policy/ is shown.',
 		),
 		'phone'                     => array(
 			'label'   => 'Phone',

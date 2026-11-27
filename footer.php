@@ -51,8 +51,26 @@ $footer_email = cb_istp2027_get_setting( 'email' );
 				}
 				?>
 				<ul class="footer__links">
-					<?php /* <li><a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy</a></li> */ ?>
-					<li><a href="<?php echo esc_url( home_url( '/cookie-policy/' ) ); ?>">Cookies</a></li>
+					<?php
+					$footer_links = cb_istp2027_get_repeater_setting( 'footer_links' );
+					if ( ! $footer_links ) {
+						$footer_links = array(
+							array(
+								'label' => 'Cookies',
+								'url'   => '/cookie-policy/',
+							),
+						);
+					}
+					foreach ( $footer_links as $footer_link ) {
+						if ( empty( $footer_link['label'] ) || empty( $footer_link['url'] ) ) {
+							continue;
+						}
+						$footer_url = preg_match( '#^(https?:)?//#', $footer_link['url'] ) ? $footer_link['url'] : home_url( '/' . ltrim( $footer_link['url'], '/' ) );
+						?>
+						<li><a href="<?php echo esc_url( $footer_url ); ?>"><?php echo esc_html( $footer_link['label'] ); ?></a></li>
+						<?php
+					}
+					?>
 				</ul>
 			</div>
 		</div>
