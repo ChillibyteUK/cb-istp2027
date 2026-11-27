@@ -62,12 +62,15 @@ $footer_email = cb_istp2027_get_setting( 'email' );
 						);
 					}
 					foreach ( $footer_links as $footer_link ) {
-						if ( empty( $footer_link['label'] ) || empty( $footer_link['url'] ) ) {
+						$footer_file = ! empty( $footer_link['file'] ) ? wp_get_attachment_url( absint( $footer_link['file'] ) ) : '';
+						$footer_raw  = $footer_file ? $footer_file : ( $footer_link['url'] ?? '' );
+						if ( empty( $footer_link['label'] ) || empty( $footer_raw ) ) {
 							continue;
 						}
-						$footer_url = preg_match( '#^(https?:)?//#', $footer_link['url'] ) ? $footer_link['url'] : home_url( '/' . ltrim( $footer_link['url'], '/' ) );
+						$footer_new = ! empty( $footer_link['new_tab'] );
+						$footer_url = preg_match( '#^(https?:)?//#', $footer_raw ) ? $footer_raw : home_url( '/' . ltrim( $footer_raw, '/' ) );
 						?>
-						<li><a href="<?php echo esc_url( $footer_url ); ?>"><?php echo esc_html( $footer_link['label'] ); ?></a></li>
+						<li><a href="<?php echo esc_url( $footer_url ); ?>"<?php echo $footer_new ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( $footer_link['label'] ); ?></a></li>
 						<?php
 					}
 					?>

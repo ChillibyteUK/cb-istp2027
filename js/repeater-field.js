@@ -91,6 +91,38 @@
 		bindImagePicker( $row );
 	}
 
+	// URL fields: type-ahead over pages/posts via core's REST search. Delegated
+	// so rows cloned from the template work. Same-site picks are stored as
+	// root-relative paths so they survive moving between environments.
+	$( document ).on( 'focus', '.cb-istp2027-url-input', function () {
+		var $input = $( this );
+		var cfg = window.cbIstp2027UrlSearch;
+
+		if ( $input.data( 'ui-autocomplete' ) || ! cfg ) {
+			return;
+		}
+
+		$input.autocomplete( {
+			minLength: 2,
+			source: function ( request, response ) {
+				$.ajax( {
+					url: cfg.endpoint,
+					data: { search: request.term, per_page: 10, type: 'post' },
+					beforeSend: function ( xhr ) {
+						xhr.setRequestHeader( 'X-WP-Nonce', cfg.nonce );
+					},
+				} ).done( function ( results ) {
+					response( results.map( function ( r ) {
+						var path = r.url.indexOf( cfg.origin ) === 0 ? r.url.slice( cfg.origin.length ) || '/' : r.url;
+						return { label: r.title + ' (' + path + ')', value: path };
+					} ) );
+				} ).fail( function () {
+					response( [] );
+				} );
+			},
+		} );
+	} );
+
 	$( function () {
 		$( '.cb-istp2027-settings-repeater' ).each( function () {
 			var $field = $( this );

@@ -110,11 +110,19 @@ function cb_istp2027_register_settings_page() {
 					'type'  => 'text',
 				),
 				'url'   => array(
-					'label' => 'URL (e.g. /privacy-policy/)',
-					'type'  => 'text',
+					'label' => 'URL (start typing to search pages)',
+					'type'  => 'url',
+				),
+				'file'    => array(
+					'label' => 'or File (e.g. PDF)',
+					'type'  => 'file',
+				),
+				'new_tab' => array(
+					'label' => 'New tab',
+					'type'  => 'checkbox',
 				),
 			),
-			'description' => 'Colophon links (Privacy, Cookies etc.) shown bottom right of the footer, in order. If empty, a Cookies link to /cookie-policy/ is shown.',
+			'description' => 'Colophon links (Privacy, Cookies etc.) shown bottom right of the footer, in order. A selected file overrides the URL. If empty, a Cookies link to /cookie-policy/ is shown.',
 		),
 		'phone'                     => array(
 			'label'   => 'Phone',
@@ -204,6 +212,7 @@ function cb_istp2027_settings_page_assets( $hook_suffix ) {
 	}
 
 	wp_enqueue_media();
+	wp_enqueue_script( 'jquery-ui-autocomplete' );
 
 	// filemtime() versioning (not the static theme Version): these are
 	// hand-maintained admin scripts, and a static version serves stale JS
@@ -229,6 +238,37 @@ function cb_istp2027_settings_page_assets( $hook_suffix ) {
 	}
 }
 add_action( 'admin_enqueue_scripts', 'cb_istp2027_settings_page_assets' );
+
+/**
+ * Hand the settings-page URL autocomplete (js/repeater-field.js) its REST
+ * search endpoint, nonce and site origin.
+ *
+ * @return void
+ */
+function cb_istp2027_settings_page_url_config() {
+	if ( ! wp_script_is( 'cb-istp2027-settings-repeater', 'enqueued' ) ) {
+		return;
+	}
+
+	wp_add_inline_style(
+		'common',
+		'.ui-autocomplete{position:absolute;z-index:100050;max-height:240px;overflow:auto;margin:0;padding:0;list-style:none;background:#fff;border:1px solid #8c8f94;box-shadow:0 2px 6px rgba(0,0,0,.15)}'
+		. '.ui-autocomplete .ui-menu-item-wrapper{display:block;padding:6px 10px;cursor:pointer}'
+		. '.ui-autocomplete .ui-state-active{background:#2271b1;color:#fff}'
+		. '.ui-helper-hidden-accessible{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}'
+	);
+
+	wp_localize_script(
+		'cb-istp2027-settings-repeater',
+		'cbIstp2027UrlSearch',
+		array(
+			'endpoint' => esc_url_raw( rest_url( 'wp/v2/search' ) ),
+			'nonce'    => wp_create_nonce( 'wp_rest' ),
+			'origin'   => untrailingslashit( home_url() ),
+		)
+	);
+}
+add_action( 'admin_enqueue_scripts', 'cb_istp2027_settings_page_url_config', 20 );
 
 /**
  * Render a single settings field — text/email/url input, a textarea, a
@@ -439,7 +479,7 @@ function cb_istp2027_render_gallery_field( $args ) {
 
 /**
  * Render a generic repeater field — rows of declaratively-configured
- * sub-fields (text, image or file), driven by js/repeater-field.js for add/
+ * sub-fields (text, image, file or checkbox), driven by js/repeater-field.js for add/
  * remove/reorder and per-row media selection.
  *
  * Row indexes in submitted field names don't need to be sequential — the
@@ -461,7 +501,11 @@ function cb_istp2027_render_repeater_field( $args ) {
 			<span style="flex: none; width: 22px;"></span>
 			<?php
 			foreach ( $sub_fields as $sub_field ) {
-				$width = 'image' === $sub_field['type'] ? 'flex: none; width: 64px;' : 'flex: 1 1 0%; min-width: 0;';
+				$fixed = array(
+					'image'    => 64,
+					'checkbox' => 56,
+				);
+				$width = isset( $fixed[ $sub_field['type'] ] ) ? 'flex: none; width: ' . $fixed[ $sub_field['type'] ] . 'px;' : 'flex: 1 1 0%; min-width: 0;';
 				?>
 			<span style="<?php echo esc_attr( $width ); ?> font-size: 12px; font-weight: 600; color: #1d2327;"><?php echo esc_html( $sub_field['label'] ); ?></span>
 				<?php
@@ -554,6 +598,19 @@ function cb_istp2027_render_repeater_row( $key, $index, $sub_fields, $row, $numb
 				</div>
 			</div>
 				<?php
+			} elseif ( 'checkbox' === $sub_field['type'] ) {
+				?>
+			<span style="flex: none; width: 56px; text-align: center;">
+				<input type="hidden" name="<?php echo esc_attr( $name ); ?>" value="0">
+				<input
+					type="checkbox"
+					aria-label="<?php echo esc_attr( $sub_field['label'] ); ?>"
+					name="<?php echo esc_attr( $name ); ?>"
+					value="1"
+					<?php checked( '1', (string) $value ); ?>
+				>
+			</span>
+				<?php
 			} elseif ( 'file' === $sub_field['type'] ) {
 				$file_name = $value ? basename( get_attached_file( absint( $value ) ) ) : '';
 				?>
@@ -585,10 +642,12 @@ function cb_istp2027_render_repeater_row( $key, $index, $sub_fields, $row, $numb
 			</div>
 				<?php
 			} else {
+				$is_url = 'url' === $sub_field['type'];
 				?>
 			<input
 				type="text"
-				class="regular-text"
+				class="regular-text<?php echo $is_url ? ' cb-istp2027-url-input' : ''; ?>"
+				<?php echo $is_url ? 'autocomplete="off" placeholder="Search pages, or paste a URL"' : ''; ?>
 				style="flex: 1 1 0%; min-width: 0; width: 100%;"
 				aria-label="<?php echo esc_attr( $sub_field['label'] ); ?>"
 				name="<?php echo esc_attr( $name ); ?>"
